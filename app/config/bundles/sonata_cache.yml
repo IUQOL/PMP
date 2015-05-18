@@ -1,0 +1,9 @@
+## YAML Template.
+---
+sonata_cache:
+    caches:
+        apc:
+            token:  1m3xH$*2014   # token used to clear the related cache
+            prefix: hrk     # prefix to ensure there is no clash between instances
+            servers:
+                - { domain: dev.hiruko.com.co, ip: 127.0.0.1, port: 80 }

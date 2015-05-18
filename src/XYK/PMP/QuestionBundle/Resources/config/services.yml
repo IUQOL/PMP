@@ -1,0 +1,4 @@
+services:
+#    question.example:
+#        class: XYK\PMP\QuestionBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

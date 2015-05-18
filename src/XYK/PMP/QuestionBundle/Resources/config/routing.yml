@@ -1,0 +1,3 @@
+question_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: QuestionBundle:Default:index }

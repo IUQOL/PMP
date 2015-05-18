@@ -1,0 +1,97 @@
+{
+    "name": "IUQOL/pmp",
+    "license": "proprietary",
+    "type": "project",
+    "description": "The \"PMP\" simulator",
+    "autoload": {
+        "psr-0": {
+            "": "src/",
+            "SymfonyStandard": "app/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.6.*",
+        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
+        "doctrine/dbal": "<2.5",
+        "doctrine/doctrine-bundle": "~1.2",
+        "twig/extensions": "~1.0",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~3.0,>=3.0.12",
+        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
+        "incenteev/composer-parameter-handler": "~2.0",
+        
+        "knplabs/knp-menu": "v2.0.0",
+        "knplabs/knp-menu-bundle": "v2.0.0",
+        
+        "friendsofsymfony/rest-bundle": "1.5.2",
+        "friendsofsymfony/jsrouting-bundle": "1.5.4",
+        "friendsofsymfony/user-bundle": "v1.3.4",
+        
+        "sonata-project/core-bundle": "2.3.0",
+        "sonata-project/formatter-bundle": "2.3.3",
+        "sonata-project/intl-bundle": "2.2.1",
+        "sonata-project/cache-bundle": "2.2.0",
+        "sonata-project/easy-extends-bundle": "2.1.8",
+        "sonata-project/jquery-bundle": "1.10.2",
+        "sonata-project/block-bundle": "2.2.12",
+        "sonata-project/admin-bundle": "2.3.3",
+        "sonata-project/doctrine-orm-admin-bundle": "2.3.2",
+        "sonata-project/user-bundle": "2.2.4",
+        "sonata-project/timeline-bundle": "2.2.0",
+        "sonata-project/notification-bundle": "2.2.7",
+       
+        "videlalvaro/php-amqplib": "v2.5.0",
+        "liip/monitor-bundle": "2.0.8",
+        
+        "jms/serializer-bundle": "0.12.0",
+        "jms/security-extra-bundle": "dev-master",
+        "jms/di-extra-bundle": "1.4.0",
+        
+        "apy/datagrid-bundle": "2.2.1",
+        "ob/highcharts-bundle": "1.2",
+        "robertotru/to-inline-style-email-bundle": "dev-master",
+        "sonata-project/media-bundle": "2.3.1"
+        
+       
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "~2.3"
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "SymfonyStandard\\Composer::hookRootPackageInstall"
+        ],
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "symfony-assets-install": "symlink",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        }
+    }
+}

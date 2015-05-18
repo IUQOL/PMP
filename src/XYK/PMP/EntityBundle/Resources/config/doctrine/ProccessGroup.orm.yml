@@ -1,0 +1,30 @@
+XYK\PMP\EntityBundle\Entity\ProccessGroup:
+    type: entity
+    table: proccess_group
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 150
+            fixed: false
+            comment: ''
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        current:
+            type: datetime
+            nullable: false
+            comment: ''
+    lifecycleCallbacks: {  }

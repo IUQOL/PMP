@@ -1,0 +1,38 @@
+XYK\PMP\EntityBundle\Entity\Answer:
+    type: entity
+    table: answer
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        description:
+            type: text
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+        correct:
+            type: boolean
+            nullable: false
+            comment: ''
+        current:
+            type: datetime
+            nullable: false
+            comment: ''
+    manyToOne:
+        question:
+            targetEntity: Question
+            cascade: ["persist"]
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_question:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,59 @@
+XYK\PMP\EntityBundle\Entity\UserLimit:
+    type: entity
+    table: user_limit
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        allowed:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: allowed
+        used:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: allowed
+        current:
+            type: datetime
+            nullable: false
+            comment: ''
+    manyToOne:
+        examType:
+            targetEntity: ExamType
+            cascade: ["persist"]
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_exam_type:
+                    referencedColumnName: id
+            orphanRemoval: false
+        knowledgeArea:
+            targetEntity: KnowledgeArea
+            cascade: ["persist"]
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_knowledge_area:
+                    referencedColumnName: id
+            orphanRemoval: false
+        proccessGroup:
+            targetEntity: ProccessGroup
+            cascade: ["persist"]
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_proccess_group:
+                    referencedColumnName: id
+            orphanRemoval: false        
+        
+    lifecycleCallbacks: {  }
