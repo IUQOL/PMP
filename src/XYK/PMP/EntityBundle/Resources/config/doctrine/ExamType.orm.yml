@@ -24,7 +24,7 @@ XYK\PMP\EntityBundle\Entity\ExamType:
             fixed: false
             comment: ''
         totalQuestions:
-            type: integrer
+            type: integer
             nullable: false
             unsigned: true
             comment: ''

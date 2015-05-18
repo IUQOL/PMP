@@ -16,13 +16,11 @@ XYK\PMP\EntityBundle\Entity\UserLimit:
             nullable: true
             unsigned: false
             comment: ''
-            column: allowed
         used:
             type: integer
             nullable: true
             unsigned: false
             comment: ''
-            column: allowed
         current:
             type: datetime
             nullable: false
