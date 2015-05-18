@@ -43,6 +43,20 @@ class Question
      * @var \XYK\PMP\EntityBundle\Entity\ProccessGroup
      */
     private $proccessGroup;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $answers;
+    
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -191,5 +205,45 @@ class Question
     public function getProccessGroup()
     {
         return $this->proccessGroup;
+    }
+    
+    /**
+     * 
+     * @param \XYK\PMP\EntityBundle\Entity\Answer $answer
+     * @return \XYK\PMP\EntityBundle\Entity\Question
+     */
+    public function addAnswer(\XYK\PMP\EntityBundle\Entity\Answer $answer)
+    {
+        $this->answers[] = $answer;
+    
+        return $this;
+    }
+
+    /**
+     * 
+     * @param \XYK\PMP\EntityBundle\Entity\Answer $answer
+     */
+    public function removeRate(\XYK\PMP\EntityBundle\Entity\Answer $answer)
+    {
+        $this->answers->removeElement($answer);
+    }
+
+    /**
+     * Get answers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 }

@@ -2,3 +2,38 @@ services:
 #    main.example:
 #        class: XYK\PMP\MainBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+    main.admin.exam_type:
+        class: XYK\PMP\MainBundle\Admin\ExamTypeAdmin
+        arguments: [~, XYK\PMP\EntityBundle\Entity\ExamType, MainBundle:ExamTypeAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: ExamType}
+
+    main.admin.question:
+        class: XYK\PMP\MainBundle\Admin\QuestionAdmin
+        arguments: [~, XYK\PMP\EntityBundle\Entity\Question, MainBundle:QuestionAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Question}
+
+    main.admin.answer:
+        class: XYK\PMP\MainBundle\Admin\AnswerAdmin
+        arguments: [~, XYK\PMP\EntityBundle\Entity\Answer, MainBundle:AnswerAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Answer}
+
+    main.admin.knowledge_area:
+        class: XYK\PMP\MainBundle\Admin\KnowledgeAreaAdmin
+        arguments: [~, XYK\PMP\EntityBundle\Entity\KnowledgeArea, MainBundle:KnowledgeAreaAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: KnowledgeArea}
+
+    main.admin.proccess_group:
+        class: XYK\PMP\MainBundle\Admin\ProccessGroupAdmin
+        arguments: [~, XYK\PMP\EntityBundle\Entity\ProccessGroup, MainBundle:ProccessGroupAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: ProccessGroup}
+
+    main.admin.user_limit:
+        class: XYK\PMP\MainBundle\Admin\UserLimitAdmin
+        arguments: [~, XYK\PMP\EntityBundle\Entity\UserLimit, MainBundle:UserLimitAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: UserLimit}

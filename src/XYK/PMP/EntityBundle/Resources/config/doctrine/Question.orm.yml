@@ -54,6 +54,11 @@ XYK\PMP\EntityBundle\Entity\Question:
             joinColumns:
                 id_proccess_group:
                     referencedColumnName: id
-            orphanRemoval: false        
+            orphanRemoval: false     
+    oneToMany:
+        answers:
+            targetEntity: Answer
+            mappedBy: question
+            cascade: ["persist"]
         
     lifecycleCallbacks: {  }

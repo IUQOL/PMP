@@ -30,7 +30,7 @@ XYK\PMP\EntityBundle\Entity\Answer:
             targetEntity: Question
             cascade: ["persist"]
             mappedBy: null
-            inversedBy: null
+            inversedBy: answers
             joinColumns:
                 id_question:
                     referencedColumnName: id

@@ -48,7 +48,7 @@ class AppKernel extends Kernel
             new XYK\PMP\EntityBundle\EntityBundle(),
             new XYK\PMP\QuestionBundle\QuestionBundle(),
             new XYK\PMP\ReportBundle\ReportBundle(),
-            new XYK\PMP\AdminBundle\AdminBundle(),
+           
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

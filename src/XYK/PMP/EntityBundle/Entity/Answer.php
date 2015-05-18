@@ -136,4 +136,13 @@ class Answer
     {
         return $this->question;
     }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getDescription();
+    }
 }

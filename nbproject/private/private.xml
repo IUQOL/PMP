@@ -4,10 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/UserLimit.orm.yml</file>
-            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/Question.orm.yml</file>
             <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/Answer.orm.yml</file>
-            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/ExamType.orm.yml</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/ExamQuestion.orm.yml</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Entity/ExamType.php</file>
             <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/KnowledgeArea.orm.yml</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/ExamType.orm.yml</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/Application/Sonata/UserBundle/Entity/User.php</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/Exam.orm.yml</file>
             <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/ProccessGroup.orm.yml</file>
         </group>
     </open-files>
