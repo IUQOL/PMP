@@ -1,6 +1,6 @@
-XYK\PMP\EntityBundle\Entity\UserLimit:
+XYK\PMP\EntityBundle\Entity\ExamQuestion:
     type: entity
-    table: user_limit
+    table: exam_question
     id:
         id:
             type: integer
@@ -11,39 +11,45 @@ XYK\PMP\EntityBundle\Entity\UserLimit:
             generator:
                 strategy: SEQUENCE
     fields:
-        allowed:
+        order:
             type: integer
             nullable: true
             unsigned: false
             comment: ''
-            column: allowed
-        used:
-            type: integer
+        solved:
+            type: boolean
             nullable: true
-            unsigned: false
             comment: ''
-            column: allowed
         current:
             type: datetime
             nullable: false
             comment: ''
     manyToOne:
-        examType:
+        exam:
             targetEntity: ExamType
             cascade: ["persist"]
             mappedBy: null
             inversedBy: null
             joinColumns:
-                id_exam_type:
+                id_exam:
                     referencedColumnName: id
             orphanRemoval: false
-        user:
-            targetEntity: Application\Sonata\UserBundle\Entity\User
+        question:
+            targetEntity: Question
             cascade: ["persist"]
             mappedBy: null
             inversedBy: null
             joinColumns:
-                id_user:
+                id_question:
+                    referencedColumnName: id
+            orphanRemoval: false
+        answer:
+            targetEntity: Answer
+            cascade: ["persist"]
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_answer:
                     referencedColumnName: id
             orphanRemoval: false
             

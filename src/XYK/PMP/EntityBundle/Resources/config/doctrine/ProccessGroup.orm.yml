@@ -23,6 +23,11 @@ XYK\PMP\EntityBundle\Entity\ProccessGroup:
             length: null
             fixed: false
             comment: ''
+        percentage:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
         current:
             type: datetime
             nullable: false

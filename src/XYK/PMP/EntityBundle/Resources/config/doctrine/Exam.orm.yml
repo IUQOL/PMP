@@ -1,2 +1,43 @@
-## YAML Template.
----
+XYK\PMP\EntityBundle\Entity\Exam:
+    type: entity
+    table: exam
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: SEQUENCE
+    fields:
+        finished:
+            type: boolean
+            nullable: false
+            comment: ''
+        current:
+            type: datetime
+            nullable: false
+            comment: ''
+    manyToOne:
+        examType:
+            targetEntity: ExamType
+            cascade: ["persist"]
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_exam_type:
+                    referencedColumnName: id
+            orphanRemoval: false
+        user:
+            targetEntity: Application\Sonata\UserBundle\Entity\User
+            cascade: ["persist"]
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_user:
+                    referencedColumnName: id
+            orphanRemoval: false
+            
+        
+    lifecycleCallbacks: {  }

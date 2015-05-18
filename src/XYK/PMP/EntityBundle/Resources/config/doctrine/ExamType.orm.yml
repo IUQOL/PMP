@@ -23,6 +23,11 @@ XYK\PMP\EntityBundle\Entity\ExamType:
             length: null
             fixed: false
             comment: ''
+        totalQuestions:
+            type: integrer
+            nullable: false
+            unsigned: true
+            comment: ''
         current:
             type: datetime
             nullable: false
