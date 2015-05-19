@@ -215,6 +215,8 @@ class Question
     public function addAnswer(\XYK\PMP\EntityBundle\Entity\Answer $answers)
     {
         $answers->setQuestion($this);
+        $now = new \DateTime();
+        $answers->setCurrent($now);
         $this->answers[] = $answers;
     
         return $this;

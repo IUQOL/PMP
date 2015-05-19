@@ -58,8 +58,10 @@ class AnswerAdmin extends Admin
                 $formMapper
                   //  ->add('question')
                     ->add('description')
-                    ->add('correct')
-
+                    
+                    ->add('correct',null,  array(
+                                    'required' => false
+                                ))
                 ;
             }
             
@@ -70,7 +72,9 @@ class AnswerAdmin extends Admin
             $formMapper
                 ->add('question')
                 ->add('description')
-                ->add('correct')
+                ->add('correct',null,  array(
+                            'required' => false
+                        ))
 
             ;
         }
