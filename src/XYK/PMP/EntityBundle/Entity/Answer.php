@@ -143,6 +143,6 @@ class Answer
      */
     public function __toString()
     {
-        return $this->getDescription();
+        return $this->getDescription().' - '. $this->getCorrect();
     }
 }

@@ -27,6 +27,7 @@ class AnswerAdmin extends Admin
      */
     protected function configureListFields(ListMapper $listMapper)
     {
+        
         $listMapper
             ->add('question')
             ->addIdentifier('description')
@@ -46,12 +47,36 @@ class AnswerAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper
-            ->add('question')
-            ->add('description')
-            ->add('correct')
-          
-        ;
+        //
+        
+        $parent = $this->parentFieldDescription;
+        if( $parent != null)
+        {
+            $adminClass = $parent->getAdmin()->getClass();
+            if($adminClass == 'XYK\PMP\EntityBundle\Entity\Question')
+            {
+                $formMapper
+                  //  ->add('question')
+                    ->add('description')
+                    ->add('correct')
+
+                ;
+            }
+            
+        
+        }
+        else
+        {
+            $formMapper
+                ->add('question')
+                ->add('description')
+                ->add('correct')
+
+            ;
+        }
+        
+        
+        
     }
 
     /**

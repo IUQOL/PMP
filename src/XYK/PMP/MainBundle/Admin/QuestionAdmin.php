@@ -29,9 +29,9 @@ class QuestionAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('explanation')
-            ->add('examType')    
-            ->add('knowledgeArea')
+            ->add('examType')  
             ->add('proccessGroup')
+            ->add('knowledgeArea')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -46,16 +46,33 @@ class QuestionAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        
+        
+        
+        
+        
+        
         $formMapper
             ->add('examType')    
-            ->add('knowledgeArea')
             ->add('proccessGroup')
+            ->add('knowledgeArea')
             ->add('title')
             ->add('explanation')
-             ->add('answers')
+            ->add('answers', 'sonata_type_collection', array(
+                        'required' => false,
+                        'by_reference' => false
+                    ), array(
+                        'edit' => 'inline',
+                        'inline' => 'table'
+                    ))
       
         ;
     }
+    
+    
+    
+    
+    
 
     /**
      * @param ShowMapper $showMapper
@@ -64,8 +81,8 @@ class QuestionAdmin extends Admin
     {
         $showMapper
             ->add('examType')    
-            ->add('knowledgeArea')
             ->add('proccessGroup')
+            ->add('knowledgeArea')
             ->add('title')
             ->add('explanation')
             ->add('answers')
@@ -79,6 +96,10 @@ class QuestionAdmin extends Admin
     public function prePersist($question) {
         $now = new \DateTime();
         $question->setCurrent($now);
+        foreach($question->getAnswers() as $answer)
+        {
+            $answer->setQuestion($question);
+        }
         parent::prePersist($question);
     }
     
@@ -88,6 +109,10 @@ class QuestionAdmin extends Admin
     public function preUpdate($question) {
         $now = new \DateTime();
         $question->setCurrent($now);
+        foreach($question->getAnswers() as $answer)
+        {
+            $answer->setQuestion($question);
+        }
         parent::preUpdate($question);
     }
 }

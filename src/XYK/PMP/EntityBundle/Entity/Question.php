@@ -209,23 +209,24 @@ class Question
     
     /**
      * 
-     * @param \XYK\PMP\EntityBundle\Entity\Answer $answer
+     * @param \XYK\PMP\EntityBundle\Entity\Answer $answers
      * @return \XYK\PMP\EntityBundle\Entity\Question
      */
-    public function addAnswer(\XYK\PMP\EntityBundle\Entity\Answer $answer)
+    public function addAnswer(\XYK\PMP\EntityBundle\Entity\Answer $answers)
     {
-        $this->answers[] = $answer;
+        $answers->setQuestion($this);
+        $this->answers[] = $answers;
     
         return $this;
     }
 
     /**
      * 
-     * @param \XYK\PMP\EntityBundle\Entity\Answer $answer
+     * @param \XYK\PMP\EntityBundle\Entity\Answer $answers
      */
-    public function removeRate(\XYK\PMP\EntityBundle\Entity\Answer $answer)
+    public function removeAnswer(\XYK\PMP\EntityBundle\Entity\Answer $answers)
     {
-        $this->answers->removeElement($answer);
+        $this->answers->removeElement($answers);
     }
 
     /**
