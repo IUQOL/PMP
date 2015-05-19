@@ -3,15 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Entity/KnowledgeArea.php</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/MainBundle/Admin/QuestionAdmin.php</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Entity/Question.php</file>
+            <file>file:/Library/WebServer/Documents/PMP/vendor/sonata-project/admin-bundle/Controller/CRUDController.php</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/MainBundle/Admin/AnswerAdmin.php</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Entity/ProccessGroup.php</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/MainBundle/Admin/ExamTypeAdmin.php</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/MainBundle/Admin/UserLimitAdmin.php</file>
             <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/UserLimit.orm.yml</file>
-            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/Answer.orm.yml</file>
-            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/ExamQuestion.orm.yml</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/MainBundle/Admin/ProccessGroupAdmin.php</file>
             <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Entity/ExamType.php</file>
-            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/KnowledgeArea.orm.yml</file>
-            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/ExamType.orm.yml</file>
-            <file>file:/Library/WebServer/Documents/PMP/src/Application/Sonata/UserBundle/Entity/User.php</file>
-            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/Exam.orm.yml</file>
-            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/ProccessGroup.orm.yml</file>
+            <file>file:/Library/WebServer/Documents/PMP/vendor/sonata-project/admin-bundle/Admin/Admin.php</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Entity/UserLimit.php</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/MainBundle/Admin/KnowledgeAreaAdmin.php</file>
+            <file>file:/Library/WebServer/Documents/PMP/src/XYK/PMP/EntityBundle/Entity/Answer.php</file>
         </group>
     </open-files>
 </project-private>
