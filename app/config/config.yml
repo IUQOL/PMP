@@ -11,6 +11,8 @@ imports:
     - { resource: bundles/sonata_notification.yml }
     - { resource: bundles/sonata_timeline.yml }
     - { resource: bundles/swiftmailer.yml }
+    - { resource: bundles/mopa_bootstrap.yml }
+    - { resource: bundles/knp_menu.yml }
 
 
 framework:

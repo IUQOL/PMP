@@ -1,0 +1,33 @@
+{#
+#}
+
+{% extends "SonataUserBundle:Profile:action.html.twig" %}
+
+{% block sonata_profile_content %}
+     <div class="container-fluid" style="margin:0;padding:0;">
+        <div class="post-head">
+          <div class="starter-template">
+            <center>
+                <h3>{{ "title_user_account" | trans({}, 'SonataUserBundle')}}</h3>
+            </center>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-12"><hr></div>
+    <div class="container-fluid" style="margin-top:30px">
+        <div class="container" >
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="{{ path('sonata_user_profile_edit') }}" method="POST" class="form-horizontal">
+                        {{ form_widget(form, {'show_legend': '0'}) }}
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" name="submit"  class="btn btn-default">{{ 'sonata_user_submit'|trans({}, 'SonataUserBundle') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <div class="col-md-12"><hr></div>
+   
+{% endblock %}

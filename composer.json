@@ -53,7 +53,10 @@
         "apy/datagrid-bundle": "2.2.1",
         "ob/highcharts-bundle": "1.2",
         "robertotru/to-inline-style-email-bundle": "dev-master",
-        "sonata-project/media-bundle": "2.3.1"
+        "sonata-project/media-bundle": "2.3.1",
+        "mopa/bootstrap-bundle": "v3.0.0-beta4",
+        "twbs/bootstrap": "v3.3.4",
+        "craue/formflow-bundle": "dev-master"
         
        
     },

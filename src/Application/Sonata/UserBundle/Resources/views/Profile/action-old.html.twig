@@ -1,0 +1,57 @@
+{#
+Profile manager base template
+#}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{{main_title}} {%endblock title%}</title>
+        <!-- Bootstrap core CSS -->
+        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+       
+        <!-- Custom styles for this template -->
+        <link href=" {{ asset('css/custom.css') }}" rel="stylesheet"><!-- Custom styles -->
+    </head>
+    <body>
+
+
+
+
+
+
+{#{% block sonata_page_breadcrumb %}
+    {% if breadcrumb_context is not defined %}
+        {% set breadcrumb_context = 'user_index' %}
+    {% endif %}
+    <div class="row-fluid clearfix">
+        {{ sonata_block_render_event('breadcrumb', { 'context': breadcrumb_context, 'current_uri': app.request.requestUri }) }}
+    </div>
+{% endblock %}#}
+
+
+
+
+
+
+{#Panel
+<h2>{% block sonata_profile_title %}{% trans from 'SonataUserBundle' %}sonata_profile_title{% endtrans %}{% endblock %}</h2>#}
+
+
+<div class="sonata-user-show row row-fluid">
+
+    <div class="span2 col-lg-2" style="padding: 8px 0;">
+        {% block sonata_profile_menu %}
+            {{ sonata_block_render({'type': 'sonata.user.block.menu'}, {'current_uri': app.request.requestUri}) }}
+        {% endblock %}
+    </div>
+
+    <div class="span10 col-lg-10">
+        {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+
+        {% block sonata_profile_content '' %}
+    </div>
+
+</div>

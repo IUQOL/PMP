@@ -1,0 +1,23 @@
+{% extends 'MainBundle:Master:template.html.twig' %}
+
+{% block scripts %}
+   
+ 
+{% endblock %}
+{% block content %}
+
+    <section style="height:100%;">
+        <article style="height:100%;">
+            <div id="accordion" style="height:100%;" >
+                <h3>Generar Autenticación 2 pasos</h3>
+
+                <div style='height:100%;'>
+                     <a href="{{ path('steeps_activate') }}"  id="button2">GENERAR</a>
+                   
+                </div>
+            </div>
+        </article>
+    </section>
+
+
+{% endblock %}

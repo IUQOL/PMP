@@ -1,0 +1,75 @@
+{# empty Twig template #}
+
+{% extends "SonataUserBundle:Profile:action.html.twig" %}     
+{% block scripts %}
+         {# <link rel="stylesheet" type="text/css" href="{{ asset('bundles/sonataadmin/vendor/bootstrap/dist/css/bootstrap.min.css') }}">#}
+          {#<link rel="stylesheet" type="text/css" href="{{ asset('bundles/sonataadmin/vendor/AdminLTE/css/AdminLTE.css') }}">#}
+ 
+{% endblock %}
+{% block content %}
+   <div class="container-fluid" style="margin:0;padding:0;">
+        <div class="post-head">
+          <div class="starter-template">
+            <center>
+                <h3> {{ 'utilities.security.two.info_label'|trans({}, 'LocalizationBundle') }}</h3>
+            </center>
+          </div>
+        </div>
+  </div>
+  <div class="col-md-12"><hr></div> 
+  
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading"><img src="{{ asset('bundles/main/images/settings-ga.png') }}" width="40px" height="40px"></image> {{ 'utilities.security.two.info_title'|trans({}, 'LocalizationBundle') }}</div>
+        <div class="panel-body">
+            <div class="form-box col-md-12" id="login-box">
+                <form  method="post" role="form">
+                      <div class="form-group control-group">
+                          <h3>
+                            {{name}}  {{ 'utilities.security.two.info_label'|trans({}, 'LocalizationBundle') }}
+                          </h3>
+                          <hr>
+                      </div>
+                      <div class="form-group control-group"> 
+                          <center>
+                              <img width="280px" style="border: 0; padding:10px" src="{{ asset('bundles/main/images/index_two.png')}}"/>
+                          </center>
+                      </div>
+                      <div class="form-group control-group">   
+                          <h3>
+                             {{ 'utilities.security.two.index_title'|trans({}, 'LocalizationBundle') }}
+                          </h3>
+                          <p align="justify">
+                              <ol>
+
+                                  <li>
+                                      {{ 'utilities.security.two.index_1'|trans({}, 'LocalizationBundle') }}
+                                      <br>
+                                      {{ 'utilities.security.two.index_2'|trans({}, 'LocalizationBundle') }}   <br>
+
+                                      <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank">Android  </a>   
+                                      <a href="https://itunes.apple.com/en/app/google-authenticator/id388497605" target="_blank">  iOS</a>
+                                  </li>
+                                  <li>
+                                      {{ 'utilities.security.two.index_3'|trans({}, 'LocalizationBundle') }}
+                                  </li>
+
+                              </ol>
+                              <a id="howworks-help-link" href="https://www.google.com/intl/en/landing/2step/" target="_blank">
+                              {{ 'utilities.security.two.info_label'|trans({}, 'LocalizationBundle') }}
+                              </a>
+                         </p>
+                      </div>
+
+                 
+                  <div class="footer">
+                      <a href="{{ path('steeps_activate') }}" class="btn btn-primary btn-block">{{ 'utilities.security.two.continue'|trans({}, 'LocalizationBundle') }}</a>
+                      <a href="{{ path('sonata_user_profile_show') }}" class="btn  btn-danger btn-block">{{ 'utilities.security.two.cancel'|trans({}, 'LocalizationBundle') }}</a>
+                  </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

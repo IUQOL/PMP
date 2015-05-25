@@ -30,7 +30,7 @@ class ExamQuestion
     private $current;
 
     /**
-     * @var \XYK\PMP\EntityBundle\Entity\ExamType
+     * @var \XYK\PMP\EntityBundle\Entity\Exam
      */
     private $exam;
 
@@ -127,10 +127,10 @@ class ExamQuestion
     /**
      * Set exam
      *
-     * @param \XYK\PMP\EntityBundle\Entity\ExamType $exam
+     * @param \XYK\PMP\EntityBundle\Entity\Exam $exam
      * @return ExamQuestion
      */
-    public function setExam(\XYK\PMP\EntityBundle\Entity\ExamType $exam = null)
+    public function setExam(\XYK\PMP\EntityBundle\Entity\Exam $exam = null)
     {
         $this->exam = $exam;
 
@@ -140,7 +140,7 @@ class ExamQuestion
     /**
      * Get exam
      *
-     * @return \XYK\PMP\EntityBundle\Entity\ExamType 
+     * @return \XYK\PMP\EntityBundle\Entity\Exam
      */
     public function getExam()
     {

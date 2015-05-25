@@ -1,0 +1,49 @@
+{# empty Twig template 
+{% extends 'MainBundle:Master:template.html.twig' %}#}
+
+{% extends "SonataUserBundle:Profile:action.html.twig" %}   
+{% block scripts %}
+          {#<link rel="stylesheet" type="text/css" href="{{ asset('bundles/sonataadmin/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+          <link rel="stylesheet" type="text/css" href="{{ asset('bundles/sonataadmin/vendor/AdminLTE/css/AdminLTE.css') }}">#}
+ 
+{% endblock %}
+{% block content %}
+<div class="container-fluid" style="margin:0;padding:0;">
+        <div class="post-head">
+          <div class="starter-template">
+            <center>
+                <h3> {{ 'utilities.security.two.deactivate'|trans({}, 'LocalizationBundle') }}</h3>
+            </center>
+          </div>
+        </div>
+</div>
+<div class="container">            
+    <div class="panel panel-default">
+      <div class="panel-heading"><img src="{{ asset('bundles/main/images/settings-ga.png') }}" width="40px" height="40px"></image> {{ 'utilities.security.two.info_title'|trans({}, 'LocalizationBundle') }}</div>
+      <div class="panel-body">
+        <div class="form-box" id="login-box">
+            <form  method="post" role="form">
+                    <div class="body bg-gray">
+                        <div class="form-group control-group"> 
+                            <center>
+                                <img width="280px" style="border: 0; padding:10px" src="{{ asset('bundles/main/images/cancel_two.png')}}"/>
+                            </center>
+                        </div>
+                        <div class="form-group control-group">
+                            <p align="justify">
+                                {{ 'utilities.security.two.confirm_cancel'|trans({}, 'LocalizationBundle') }}
+                            </p>
+                        </div>
+                    </div>
+                        <div class="footer">
+                            <a href="{{ path('cancel_two') }}" class="btn btn-primary btn-block">{{ 'utilities.security.two.deactivate'|trans({}, 'LocalizationBundle') }}</a>
+                            <a href="{{ path('sonata_user_profile_show') }}" class="btn btn-danger btn-block">{{ 'utilities.security.two.back'|trans({}, 'LocalizationBundle') }}</a>
+                        </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+{% endblock %}

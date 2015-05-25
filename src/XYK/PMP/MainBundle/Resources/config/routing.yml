@@ -1,3 +1,7 @@
-main_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: MainBundle:Default:index }
+question:
+    path:     /question/{id}
+    defaults: { _controller: MainBundle:Exam:question }
+
+exam:
+    path:   /exam/{idGroup}/{idType}/{idExamType}
+    defaults: { _controller: MainBundle:Exam:generateExam, idExamType: 1, idType: -1, idGroup: -1 }

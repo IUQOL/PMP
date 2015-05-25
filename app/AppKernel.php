@@ -48,6 +48,10 @@ class AppKernel extends Kernel
             new XYK\PMP\EntityBundle\EntityBundle(),
             new XYK\PMP\QuestionBundle\QuestionBundle(),
             new XYK\PMP\ReportBundle\ReportBundle(),
+            //Mopa menu bundle
+            new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
+//            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Craue\FormFlowBundle\CraueFormFlowBundle(),
            
         );
 

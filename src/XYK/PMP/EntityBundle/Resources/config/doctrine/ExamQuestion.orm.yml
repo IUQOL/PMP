@@ -16,6 +16,8 @@ XYK\PMP\EntityBundle\Entity\ExamQuestion:
             nullable: true
             unsigned: false
             comment: ''
+            column: order_question
+            
         solved:
             type: boolean
             nullable: true
@@ -26,7 +28,7 @@ XYK\PMP\EntityBundle\Entity\ExamQuestion:
             comment: ''
     manyToOne:
         exam:
-            targetEntity: ExamType
+            targetEntity: Exam
             cascade: ["persist"]
             mappedBy: null
             inversedBy: null
