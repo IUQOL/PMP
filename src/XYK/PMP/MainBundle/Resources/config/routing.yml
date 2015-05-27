@@ -1,7 +1,11 @@
 question:
-    path:     /question/{id}
-    defaults: { _controller: MainBundle:Exam:question }
+    path:     /question/{id}/{idExam}
+    defaults: { _controller: MainBundle:Exam:question, idExam: null,  }
 
 exam:
-    path:   /exam/{idGroup}/{idType}/{idExamType}
-    defaults: { _controller: MainBundle:Exam:generateExam, idExamType: 1, idType: -1, idGroup: -1 }
+    path:   /exam/{idExam}/{idGroup}/{idType}/{idExamType}
+    defaults: { _controller: MainBundle:Exam:generateExam,idExam: -1, idExamType: 1, idType: -1, idGroup: -1 }
+
+doExam:
+    path:   /doExam/{idExam}
+    defaults: { _controller: MainBundle:Exam:resolveExam}

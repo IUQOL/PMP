@@ -16,7 +16,7 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   background:#FCFCFC;
   color:#000;
 }
@@ -40,6 +40,11 @@ body {
 body > .container-fluid {
   padding: 60px 15px 0;
 }
+
+body > .container-fluid-content {
+  padding: 0px 15px 40px 15px;
+}
+
 .container .text-muted {
   margin: 20px 0;
 }

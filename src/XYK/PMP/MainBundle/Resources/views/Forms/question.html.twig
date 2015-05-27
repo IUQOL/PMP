@@ -10,7 +10,7 @@
         
             <div class="radio">
                 <label>
-                    <input type="radio"  name="question" value="{{Option1.id}}" {% if Answered  %} disabled {%if Answer ==1 %} checked {%endif%} {% endif %}>
+                    <input type="radio"  name="question" value="{{Option1.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==1 %} checked {%endif%}>
                     {{Option1.description}}
                     {%if (Answered) and (Answer ==1)%}
                         {%if Option1.correct%} 
@@ -23,7 +23,7 @@
             </div>
             <div class="radio">
                 <label>
-                    <input type="radio"  name="question" value="{{Option2.id}}" {% if Answered  %} disabled {%if Answer ==2 %} checked {%endif%} {% endif %}>
+                    <input type="radio"  name="question" value="{{Option2.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==2 %} checked {% endif %}>
                     {{Option2.description}}
                     {%if (Answered) and (Answer ==2)%}
                         {%if Option1.correct%} 
@@ -37,7 +37,7 @@
             <div class="radio">
                 <label>
           
-                    <input type="radio"  name="question" value="{{Option3.id}}" {% if Answered  %} disabled {%if Answer ==3 %} checked {%endif%} {% endif %}>
+                    <input type="radio"  name="question" value="{{Option3.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==3 %} checked {% endif %}>
                     {{Option3.description}}
                     {%if (Answered) and (Answer ==3)%}
                         {%if Option1.correct%} 
@@ -50,7 +50,7 @@
             </div>
             <div class="radio">
                 <label>
-                    <input type="radio"  name="question" value="{{Option4.id}}" {% if Answered  %} disabled {%if Answer ==4 %} checked {%endif%} {% endif %}>
+                    <input type="radio"  name="question" value="{{Option4.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==4 %} checked {%endif%}>
                     {{Option4.description}}
                     {%if (Answered) and (Answer == 4)%}
                         {%if Option1.correct%} 
@@ -63,13 +63,20 @@
             </div>
     </h6>
         <div class="btn-group" role="group" aria-label="...">
-            <button id="btn_previous" type="button" class="btn btn-primary">Anterior</button>
-            <button id="btn_next" type="button" class="btn btn-primary">Siguiente</button>
+            {% if ShowPrevious%}
+                <a id="btn_previous"  class="btn btn-primary">Anterior</a>
+            {% endif %}
+            {% if ShowNext%}
+                <a id="btn_next" type="button" class="btn btn-primary">Siguiente</a>
+            {% endif %}
             {% if ShowExplanation%}
                 <button id="btn_explanation" type="button" class="btn btn-info" onclick="$( '#panel_explanation' ).toggle(); return false;">Explicación</button>
             {% endif %}
-            <button id="btn_questions" type="button" class="btn btn-default">Preguntas</button>
-            <button id="btn_finish" type="button" class="btn btn-success">Evaluar</button>
+            {% if IdExam != -1%}
+                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_questions" type="button" class="btn btn-default">Preguntas</a>
+            
+                <a id="btn_finish" type="button" class="btn btn-success">Evaluar</a>
+            {% endif %}
         </div>
 
   </div>
