@@ -1,8 +1,8 @@
-<div class="col-xs-12 col-sm-4 col-md-2 col-lg-1">
+<div class="col-xs-6 col-sm-4 col-md-2 col-lg-1">
     <div class="list-group {%if exam.finished%}disabled {%endif%}">
         {% for question in questions %}
             <a href="{{ path('question', {'id':question.question.id, 'idExam': exam.id}) }}" class="list-group-item">
-            {{question.order}} {%if question.solved%}  <span class="badge"> &#10004;</span> {%endif%}  </a>
+            {{question.order}} {%if question.solved%}  <span class="badge">&#10003;</span> {%endif%}  </a>
         {% endfor %}
     </div>
 </div>

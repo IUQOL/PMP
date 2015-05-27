@@ -1,9 +1,56 @@
 {% extends 'MainBundle:Master:master.html.twig' %}
 {% block content %}
+ <script language="javascript">
+    function SolveQuestion(idExamQuestion){
+        var idAnswer = $('input:radio[name=question]:checked').val();
+        $.ajax({
+            url: '{{ path('solveQuestion') }}',
+            type: "POST",
+            data: {
+                'idExamQuestion': idExamQuestion,
+                'idAnswer': idAnswer
+            },
+            success: function(resp) { //Limpia el cuerpo de la tabla para incluir la nueva información
+                var jsonResp = JSON.parse(resp);
+                console.log(jsonResp);
+              
+              
+               return true;
+            },
+            onFailure: function() {
+                //alert('Se ha producido un error');
+            }
+        });
+      
+    }
+    
+    function FinishExam(idExam){
+        
+        $.ajax({
+            url: '{{ path('finishExam') }}',
+            type: "POST",
+            data: {
+                'idExam': idExam
+               
+            },
+            success: function(resp) { //Limpia el cuerpo de la tabla para incluir la nueva información
+                var jsonResp = JSON.parse(resp);
+                console.log(jsonResp);
+              
+              
+               return true;
+            },
+            onFailure: function() {
+                //alert('Se ha producido un error');
+            }
+        });
+      
+    }
             
+</script>
  <div class="panel panel-primary">
   <div class="panel-heading">
-      <h3 class="panel-title">{{ Title }}</h3>
+      <h3 class="panel-title"><span class="badge">{{QuestionId}}</span> {{ Title }} </h3>
   </div>
   <div class="panel-body">
       <h6>
@@ -64,18 +111,20 @@
     </h6>
         <div class="btn-group" role="group" aria-label="...">
             {% if ShowPrevious%}
-                <a id="btn_previous"  class="btn btn-primary">Anterior</a>
+                <a href="{{ path('question', {'id':prevId, 'idExam': exam.id}) }}" onclick="return SolveQuestion({{ExamQuestion.id}});" id="btn_previous" class="btn btn-primary">Anterior</a>
+                
             {% endif %}
             {% if ShowNext%}
-                <a id="btn_next" type="button" class="btn btn-primary">Siguiente</a>
+                <a href="{{ path('question', {'id':nextId, 'idExam': exam.id}) }}" id="btn_next" onclick="return SolveQuestion({{ExamQuestion.id}});"  class="btn btn-primary" >Siguiente</a>
+                
             {% endif %}
             {% if ShowExplanation%}
-                <button id="btn_explanation" type="button" class="btn btn-info" onclick="$( '#panel_explanation' ).toggle(); return false;">Explicación</button>
+                <button id="btn_explanation"  class="btn btn-info" onclick="$( '#panel_explanation' ).toggle(); return false;">Explicación</button>
             {% endif %}
             {% if IdExam != -1%}
-                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_questions" type="button" class="btn btn-default">Preguntas</a>
+                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_questions" onclick="return SolveQuestion({{ExamQuestion.id}});"  class="btn btn-default">Preguntas</a>
             
-                <a id="btn_finish" type="button" class="btn btn-success">Evaluar</a>
+                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_finish"  class="btn btn-success" onclick="return (SolveQuestion({{ExamQuestion.id}}) && FinishExam({{exam.id}});">Evaluar</a>
             {% endif %}
         </div>
 

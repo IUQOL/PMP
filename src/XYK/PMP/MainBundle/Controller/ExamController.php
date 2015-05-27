@@ -21,7 +21,8 @@ class ExamController extends Controller
     public function questionAction($id, $idExam = null)
     {
         $exam = null;
-        $answered = $showExam= $explanation = $previous =$next = false;
+        $answered = $showExam  = $previous =$next = false;
+        $explanation = true;
         if($idExam != -1)
         {
            $exam = $this->getDoctrine()
@@ -66,7 +67,7 @@ class ExamController extends Controller
             $option4 = $answers2[3];
         }
         $option = -1;
-        
+        $prevId = $nextId = -1;
         if($exam != null)
         {
             $examQuestion = $this->getDoctrine()
@@ -79,15 +80,15 @@ class ExamController extends Controller
                 {
                     $option =1;
                 }
-                if($examQuestion->getAnswer()->getId() == $option1->getId())
+                if($examQuestion->getAnswer()->getId() == $option2->getId())
                 {
                     $option =2;
                 }
-                if($examQuestion->getAnswer()->getId() == $option1->getId())
+                if($examQuestion->getAnswer()->getId() == $option3->getId())
                 {
                     $option =3;
                 }
-                if($examQuestion->getAnswer()->getId() == $option1->getId())
+                if($examQuestion->getAnswer()->getId() == $option4->getId())
                 {
                     $option =4;
                 }
@@ -95,11 +96,38 @@ class ExamController extends Controller
             if($examQuestion->getOrder() == 1)
             {
                 $previous = false;
+                $examQuestionNext = $this->getDoctrine()
+                ->getRepository('EntityBundle:ExamQuestion')
+                ->findOneBy(array('exam' => $exam, 'order' => $examQuestion->getOrder() + 1 ));
+                $nextId = $examQuestionNext->getQuestion()->getId();
             }
-            if($examQuestion->getOrder() == $exam->getExamType()->getTotalQuestions())
+            elseif($examQuestion->getOrder() == $exam->getExamType()->getTotalQuestions())
             {
                 $next = false;
+                $examQuestionPrev = $this->getDoctrine()
+                ->getRepository('EntityBundle:ExamQuestion')
+                ->findOneBy(array('exam' => $exam, 'order' => $examQuestion->getOrder() - 1));
+                $prevId = $examQuestionPrev->getQuestion()->getId();
             }
+            else
+            {
+                $examQuestionNext = $this->getDoctrine()
+                ->getRepository('EntityBundle:ExamQuestion')
+                ->findOneBy(array('exam' => $exam, 'order' => $examQuestion->getOrder() + 1 ));
+                $nextId = $examQuestionNext->getQuestion()->getId();
+                $examQuestionPrev = $this->getDoctrine()
+                ->getRepository('EntityBundle:ExamQuestion')
+                ->findOneBy(array('exam' => $exam, 'order' => $examQuestion->getOrder() - 1));
+                $prevId = $examQuestionPrev->getQuestion()->getId();
+            }
+            
+            $examQuestionNext = $this->getDoctrine()
+            ->getRepository('EntityBundle:ExamQuestion')
+            ->findOneBy(array('exam' => $exam, 'question' => $question));
+            
+            $examQuestionPrev = $this->getDoctrine()
+            ->getRepository('EntityBundle:ExamQuestion')
+            ->findOneBy(array('exam' => $exam, 'question' => $question));
             
         }
         
@@ -118,11 +146,14 @@ class ExamController extends Controller
                     'ShowPrevious' => $previous,
                     'ShowNext' => $next,
                     'ShowExam' => $showExam,
-                    'Exam' => $exam,
-                    
+                    'exam' => $exam,
+                    'prevId' => $prevId,
+                    'nextId' => $nextId,
                     'Answered' => $answered,
                     'Answer' => $option,
                     'IdExam' => $idExam,
+                    'ExamQuestion' => $examQuestion,
+                    'QuestionId' => $question->getId(),
                 ));
     }
     
@@ -233,6 +264,53 @@ class ExamController extends Controller
                 ));
     }
             
+    
+    public function solveQuestionAction()
+    {
+        
+        $idExamQuestion=$_POST['idExamQuestion'];
+        $idAnswer= $_POST['idAnswer'];
+    
+        $answer = $this->getDoctrine()
+            ->getRepository('EntityBundle:Answer')
+            ->findOneById($idAnswer);
+        
+        if ($answer) {
+            $em = $this->getDoctrine()->getManager();
+            $examQuestion = $this->getDoctrine()
+                ->getRepository('EntityBundle:ExamQuestion')
+                ->findOneById($idExamQuestion);
+        
+       
+        
+            $examQuestion->setSolved(true);
+            $examQuestion->setAnswer($answer);
+
+            $em->persist($examQuestion);
+            $em->flush();
+        
+        }
+        
+        
+        return new \Symfony\Component\HttpFoundation\Response(json_encode($examQuestion));
+    }
+    
+    public function finishExamAction()
+    {
+        $idExam=$_POST['idExam'];
+        $exam = $this->getDoctrine()
+            ->getRepository('EntityBundle:Exam')
+            ->findOneById($idExam);
+        
+        if ($exam) 
+        { 
+            $em = $this->getDoctrine()->getManager();
+            $exam->setFinished(true);
+            $em->persist($exam);
+            $em->flush();
+        }
+        return new \Symfony\Component\HttpFoundation\Response(json_encode($exam));
+    }
     
     private function createExam($idExamType =1, $idType = -1, $idGroup = -1)
     {
@@ -349,10 +427,7 @@ class ExamController extends Controller
     }
     
     
-    public function indexAction($name)
-    {
-        return $this->render('MainBundle:Default:index.html.twig', array('name' => $name));
-    }
+    
     
     /**
      * randomize an array

@@ -6,6 +6,10 @@ exam:
     path:   /exam/{idExam}/{idGroup}/{idType}/{idExamType}
     defaults: { _controller: MainBundle:Exam:generateExam,idExam: -1, idExamType: 1, idType: -1, idGroup: -1 }
 
-doExam:
-    path:   /doExam/{idExam}
-    defaults: { _controller: MainBundle:Exam:resolveExam}
+solveQuestion:
+    path:   /solve
+    defaults: { _controller: MainBundle:Exam:solveQuestion }
+    
+finishExam:
+    path: /finish
+    defaults: { _controller: MainBundle:Exam:finishExam }

@@ -1,5 +1,32 @@
 {% extends 'MainBundle:Master:master.html.twig' %}
 {% block content %}
+ <script language="javascript">
+   
+    
+    function FinishExam(idExam){
+        
+        $.ajax({
+            url: '{{ path('finishExam') }}',
+            type: "POST",
+            data: {
+                'idExam': idExam
+               
+            },
+            success: function(resp) { //Limpia el cuerpo de la tabla para incluir la nueva información
+                var jsonResp = JSON.parse(resp);
+                console.log(jsonResp);
+              
+              
+               return true;
+            },
+            onFailure: function() {
+                //alert('Se ha producido un error');
+            }
+        });
+      
+    }
+            
+</script>
     <div class="row">
         
         {% include "MainBundle:Partials:questions.html.twig" with { questions: questions1 }  %}
@@ -16,4 +43,16 @@
         {% include "MainBundle:Partials:questions.html.twig" with { questions: questions11 }  %}
         {% include "MainBundle:Partials:questions.html.twig" with { questions: questions12 }  %}
     </div>
+    <div class="btn-group" role="group" aria-label="...">
+            
+            
+                
+            <a href="{{ path('exam', {'idExam':exam.id}) }}" id="btn_finish"  class="btn btn-success btn-lg btn-block {% if exam.finished %} disabled {% endif %}" onclick="return FinishExam({{exam.id}});">Evaluar</a>
+            
+            {% if exam.finished %} 
+                
+                <a href="#" id="btn_finish"  class="btn btn-info btn-lg btn-block" >Resultado</a>
+            {% endif %}
+    </div>
+    
 {% endblock content%}
