@@ -281,8 +281,6 @@ class ExamController extends Controller
                 ->getRepository('EntityBundle:ExamQuestion')
                 ->findOneById($idExamQuestion);
         
-       
-        
             $examQuestion->setSolved(true);
             $examQuestion->setAnswer($answer);
 
@@ -304,12 +302,44 @@ class ExamController extends Controller
         
         if ($exam) 
         { 
+            $questions = $this->getDoctrine()
+                ->getRepository('EntityBundle:ExamQuestion')
+                ->findBy(array('exam' => $exam), array('order' => 'ASC'));
+            $correct =0;
+            foreach ($questions as $question)
+            {
+                if($question->getSolved() && $question->getAnswer()->getCorrect())
+                {
+                    $correct++;
+                }
+            }
+            $percentage = ($correct * 100)/ $exam->getExamType()->getTotalQuestions();
+            
             $em = $this->getDoctrine()->getManager();
             $exam->setFinished(true);
+            $exam->setPercentage($percentage);
             $em->persist($exam);
             $em->flush();
         }
         return new \Symfony\Component\HttpFoundation\Response(json_encode($exam));
+    }
+    
+    public function historyAction()
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+        
+        $examns = $this->getDoctrine()
+            ->getRepository('EntityBundle:Exam')
+            ->findBy(array('user' => $user), array('current' => 'ASC'));
+        
+        return $this->render('MainBundle:Forms:examList.html.twig', 
+                array(
+                    'examns' => $examns,
+                ));
+        
     }
     
     private function createExam($idExamType =1, $idType = -1, $idGroup = -1)
@@ -337,6 +367,7 @@ class ExamController extends Controller
         $exam->setExamType($examType);
         $exam->setFinished(false);
         $exam->setUser($user);
+        $exam->setPercentage(0);
         $exam->setCurrent($now);
 
 

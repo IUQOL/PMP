@@ -124,7 +124,7 @@
             {% if IdExam != -1%}
                 <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_questions" onclick="return SolveQuestion({{ExamQuestion.id}});"  class="btn btn-default">Preguntas</a>
             
-                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_finish"  class="btn btn-success" onclick="return (SolveQuestion({{ExamQuestion.id}}) && FinishExam({{exam.id}});">Evaluar</a>
+                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_finish"  class="btn btn-success" onclick="SolveQuestion({{ExamQuestion.id}}); FinishExam({{exam.id}}); return true;">Evaluar</a>
             {% endif %}
         </div>
 

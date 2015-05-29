@@ -30,12 +30,11 @@ class Builder extends ContainerAware
         ));
 
         if ($token != null && ($security->isGranted('ROLE_SONATA_ADMIN') || $security->isGranted('ROLE_SUPER_ADMIN'))) {
-            $adminMenu = $menu->addChild('Admin', array(
+            $adminMenu = $menu->addChild('Administración', array(
                 'uri' => '#',
                 'dropdown' => true,
                 'caret' => true,
-                //'childrenAttributes' => array('class' => 'dropdown')
-                ));// ''|trans([], 'LocalizationBundle'))
+                ));
 
             foreach ($admin_pool->getDashboardGroups() as $group) {
                 $display = (count($group['roles']) == 0) || $security->isGranted('ROLE_SUPER_ADMIN');
@@ -69,6 +68,23 @@ class Builder extends ContainerAware
             }
            
         }
+        
+        $exam =$menu->addChild('Examenes', array(
+                'uri' => '#',
+                'dropdown' => true,
+                'caret' => true,
+                ));
+        
+        $exam->addChild('Nuevo Examen', 
+                           array('route' => 'exam'));
+        $exam->addChild('Examen por Area', 
+                            array('uri' => '#'));
+        $exam->addChild('Pregunta', 
+                            array('uri' => '#'));
+        
+        $menu->addChild('Historial', array(
+                'route' => 'history',
+                ));
 
 //        if ($security->isGranted('ROLE_ADMIN') || $security->isGranted('ROLE_SCHEDULE') || $security->isGranted('ROLE_SUPER_ADMIN')) {
 //            $scheduleMenu = $menu->addChild($this->translate('Menu.schedule.label'), array('uri' => '#'));

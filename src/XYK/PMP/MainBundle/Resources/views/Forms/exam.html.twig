@@ -43,16 +43,24 @@
         {% include "MainBundle:Partials:questions.html.twig" with { questions: questions11 }  %}
         {% include "MainBundle:Partials:questions.html.twig" with { questions: questions12 }  %}
     </div>
-    <div class="btn-group" role="group" aria-label="...">
-            
-            
+    
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group" >
+
+
+
+                <a href="{{ path('exam', {'idExam':exam.id}) }}" id="btn_finish"  class="btn btn-success btn-lg  {% if exam.finished %} disabled {% endif %}" onclick="return FinishExam({{exam.id}});">Evaluar</a>
+
+        </div>
+                {% if exam.finished %} 
+        <div class="btn-group" role="group" >
                 
-            <a href="{{ path('exam', {'idExam':exam.id}) }}" id="btn_finish"  class="btn btn-success btn-lg btn-block {% if exam.finished %} disabled {% endif %}" onclick="return FinishExam({{exam.id}});">Evaluar</a>
-            
-            {% if exam.finished %} 
                 
-                <a href="#" id="btn_finish"  class="btn btn-info btn-lg btn-block" >Resultado</a>
-            {% endif %}
+
+                    <a href="#" id="btn_finish"  class="btn btn-info btn-lg" >Resultado</a>
+                
+        </div>
+        {% endif %}
     </div>
     
 {% endblock content%}

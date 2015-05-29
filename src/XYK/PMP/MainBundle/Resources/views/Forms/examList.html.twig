@@ -1,0 +1,13 @@
+{% extends 'MainBundle:Master:master.html.twig' %}
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="list-group ">
+            {% for exam in examns %}
+                <a href="{{ path('exam', {'idExam': exam.id}) }}" class="list-group-item">
+              <span class="label  {%if exam.finished%}label-success {%else%} label-primary {%endif%} ">{{ loop.index }}</span>   {{exam.examType.name}} - {{exam.current | date ('d-m-Y H:i')}}   <span class="badge">{{exam.percentage}}%</span>  </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content%}

@@ -1,1 +1,34 @@
-Hello {{ name }}!
+{% extends 'MainBundle:Master:master.html.twig' %}
+{%block breadcrumb %}{%endblock breadcrumb%}
+{% block content %}
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Bienvenido!</h1>
+        <p>En este sitio podra seguir su entrenamiento en los diferentes examenes habilitados para usted. Esperamos sea de su agrado.</p>
+        
+      </div>
+    </div>
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Historial</h2>
+          <p> En esta sección esta el progreso de sus examenes tomados previamente.</p>
+          <p><a class="btn btn-primary btn-lg" href="{{ path('history') }}" role="button">Ver »</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Examen</h2>
+          <p> Tomar un nuevo examen </p>
+          <p><a class="btn btn-primary btn-lg" href="{{ path('exam') }}" role="button">Ver »</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>Area Especifica</h2>
+          <p>En esta sección podra entrenar para sus examenes por areas especificas.</p>
+          <p><a class="btn btn-primary btn-lg" href="#" role="button">Ver »</a></p>
+        </div>
+      </div>
+
+      
+
+    </div>
+{%endblock content%}

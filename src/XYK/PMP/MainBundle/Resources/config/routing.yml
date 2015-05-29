@@ -1,3 +1,7 @@
+homepage:
+    pattern:  /
+    defaults: { _controller: MainBundle:Default:index }
+
 question:
     path:     /question/{id}/{idExam}
     defaults: { _controller: MainBundle:Exam:question, idExam: null,  }
@@ -13,3 +17,7 @@ solveQuestion:
 finishExam:
     path: /finish
     defaults: { _controller: MainBundle:Exam:finishExam }
+    
+history:
+    path: /history
+    defaults: { _controller: MainBundle:Exam:history }

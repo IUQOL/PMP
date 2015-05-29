@@ -15,6 +15,13 @@ XYK\PMP\EntityBundle\Entity\Exam:
             type: boolean
             nullable: false
             comment: ''
+        percentage:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            comment: ''
+            default: '0::real'
         current:
             type: datetime
             nullable: false

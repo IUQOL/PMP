@@ -18,6 +18,11 @@ class Exam
      * @var boolean
      */
     private $finished;
+    
+    /**
+     * @var float
+     */
+    private $percentage;
 
     /**
      * @var \DateTime
@@ -66,6 +71,27 @@ class Exam
     public function getFinished()
     {
         return $this->finished;
+    }
+    
+    /**
+     * 
+     * @param float $percentage
+     * @return \XYK\PMP\EntityBundle\Entity\Exam
+     */
+    public function setPercentage($percentage)
+    {
+        $this->percentage = $percentage;
+    
+        return $this;
+    }
+
+    /**
+     * 
+     * @return float
+     */
+    public function getPercentage()
+    {
+        return $this->percentage;
     }
 
     /**
