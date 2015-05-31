@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_pgsql
+    database_host: localhost
+    database_port: 5432
+    database_name: pmp_trainner
+    database_user: postgres
+    database_password: imexhs2013
+    mailer_transport: gmail
+    mailer_host: null
+    mailer_user: luis.torres@imexhs.com
+    mailer_password: ltorres2013
+    locale: es
+    secret: 25d60ffeb85f3cc6e937869c3dedf8be
