@@ -401,6 +401,69 @@ class ExamController extends Controller
         //return new \Symfony\Component\HttpFoundation\Response();
     }
     
+    public function getExamAction()
+    {
+        $types = $this->getDoctrine()
+            ->getRepository('EntityBundle:ExamType')
+            ->findAll();
+       
+        return $this->render('MainBundle:Forms:selectExam.html.twig', 
+                array(
+                    'types' => $types,
+                    'errort' => false,
+                    
+                ));
+    }
+    
+    public function createExamAction()
+    {
+        $idTypeExam=$_POST['idTypeExam'];
+        
+        $user = $this->get('security.context')->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+        
+        $examType = $this->getDoctrine()
+            ->getRepository('EntityBundle:ExamType')
+            ->findOneById($idTypeExam);
+        
+        $userLimit = $this->getDoctrine()
+            ->getRepository('EntityBundle:UserLimit')
+            ->findOneBy(array('user' => $user, 'examType' => $examType));
+        
+        $types = $this->getDoctrine()
+            ->getRepository('EntityBundle:ExamType')
+            ->findAll();
+        
+        if($userLimit)
+        {
+            if($userLimit->getUsed() < $userLimit->getAllowed())
+            {
+                $used = $userLimit->getUsed() +1;
+                $userLimit->setUsed($used);
+                $em = $this->getDoctrine()->getManager();
+            
+                $em->persist($userLimit);
+                $em->flush();
+                return $this->generateExamAction(-1, $idTypeExam , -1 , -1);
+            }
+            else {
+                return $this->render('MainBundle:Forms:selectExam.html.twig', 
+                array(
+                    'types' => $types,
+                    'errort' => true,
+                    
+                ));
+                
+            }
+        }
+        
+        return $this->generateExamAction(-1, $idTypeExam , -1 , -1);
+        
+        //return new \Symfony\Component\HttpFoundation\Response();
+    }
+    
     public function reportAction($idExam)
     {
         $exam = $this->getDoctrine()

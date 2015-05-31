@@ -42,3 +42,12 @@ report:
     path: /getReport/{idExam}
     defaults: { _controller: MainBundle:Exam:report  }
     
+createExam:
+    path: /newExam
+    defaults: { _controller: MainBundle:Exam:createExam}
+    
+getExam:
+    path: /takeExam
+    defaults: { _controller: MainBundle:Exam:getExam}
+
+    

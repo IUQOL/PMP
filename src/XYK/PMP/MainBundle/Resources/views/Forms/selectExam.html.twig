@@ -1,0 +1,58 @@
+{% extends 'MainBundle:Master:master.html.twig' %}
+{% block content %}
+
+ {%if errort%}
+  <div class="panel panel-danger">
+  <div class="panel-heading">
+      <h3 class="panel-title"><span class="badge">-</span> ERROR </h3>
+  </div>
+  <div class="panel-body">
+    
+       Ha alcanzado el limite de examenes de este tipo que puede tomar, por favor contactese con el administrador del sistema.       
+            
+        
+ 
+        
+
+  </div>
+      </div> 
+ 
+ {%endif%}
+  
+ <div class="panel panel-primary">
+  <div class="panel-heading">
+      <h3 class="panel-title"><span class="badge">-</span> Seleccionar examen </h3>
+  </div>
+  <div class="panel-body">
+    <form action="{{ path("createExam") }}" method="POST" target="_self" id="Area">
+        
+        
+        <div class="form-group">
+            <label for="idTypeExam">Tipo de Examen</label>
+            <select class="form-control" id="idTypeExam" name="idTypeExam" required autofocus >
+                {%for typeExam in types%}
+                    <option value="{{typeExam.id}}">{{typeExam.name}}</option>
+                {%endfor%}
+            </select>   
+        </div>
+        
+        
+        <button class="btn btn-success" type="submit">Tomar</button>
+              
+            
+        
+    </form>  
+        
+
+  </div>
+
+     
+            
+            
+            
+</div>  
+
+        
+
+{% endblock content %} 
+  
