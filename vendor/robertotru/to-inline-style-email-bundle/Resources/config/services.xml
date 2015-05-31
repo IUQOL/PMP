@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="css_to_inline_email_converter.class">RobertoTru\ToInlineStyleEmailBundle\Converter\ToInlineStyleEmailConverter</parameter>
+        <parameter key="css_to_inline_email_twig_extension.class">RobertoTru\ToInlineStyleEmailBundle\Twig\InlineCssExtension</parameter>
+    </parameters>
+
+    <services>
+        <service id="css_to_inline_email_converter" class="%css_to_inline_email_converter.class%">
+            <argument type="service" id="service_container" />
+        </service>
+        <service id="css_to_inline_email_twig_extension" class="%css_to_inline_email_twig_extension.class%">
+            <argument type="service" id="css_to_inline_email_converter" />
+            <argument type="service" id="templating.locator" />
+            <argument type="service" id="templating.name_parser" />
+            <argument>%kernel.root_dir%</argument>
+            <argument>%kernel.debug%</argument>
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>
+
