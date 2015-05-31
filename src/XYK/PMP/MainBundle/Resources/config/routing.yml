@@ -21,3 +21,24 @@ finishExam:
 history:
     path: /history
     defaults: { _controller: MainBundle:Exam:history }
+    
+search:
+    path: /search
+    defaults: { _controller: MainBundle:Exam:search}
+    
+searchQuestion:
+    path: /searchQuestion
+    defaults: { _controller: MainBundle:Exam:searchQuestion}
+    
+searchArea:
+    path: /area
+    defaults: { _controller: MainBundle:Exam:area}
+    
+areaExam:
+    path: /areaExam
+    defaults: { _controller: MainBundle:Exam:areaExam}
+    
+report:
+    path: /getReport/{idExam}
+    defaults: { _controller: MainBundle:Exam:report  }
+    

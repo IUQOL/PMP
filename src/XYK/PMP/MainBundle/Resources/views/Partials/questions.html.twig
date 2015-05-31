@@ -2,7 +2,25 @@
     <div class="list-group {%if exam.finished%}disabled {%endif%}">
         {% for question in questions %}
             <a href="{{ path('question', {'id':question.question.id, 'idExam': exam.id}) }}" class="list-group-item">
-            {{question.order}} {%if question.solved%}  <span class="badge">&#10003;</span> {%endif%}  </a>
+                {%if exam.finished%}
+                    {%if question.solved%}
+                        {%if question.answer.correct%}
+                            <span class="label label-success">{{question.order}}</span>   
+                        {%else%}
+                            <span class="label label-danger">{{question.order}}</span>   
+                        {%endif%}
+                    {%else%}
+                       <span class="label label-danger">{{question.order}}</span>   
+                    {%endif%}    
+                {%else %}
+                    <span class="label label-primary">{{question.order}}</span>  
+                {%endif%}
+            
+                 
+                {%if question.solved%}  
+                    <span class="badge">&#10059;</span> 
+                {%endif%}  
+            </a>
         {% endfor %}
     </div>
 </div>

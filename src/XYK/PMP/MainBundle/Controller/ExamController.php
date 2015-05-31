@@ -8,6 +8,7 @@ use XYK\PMP\EntityBundle\Entity\Exam;
 use XYK\PMP\EntityBundle\Entity\ExamQuestion;
 use Doctrine\Common\Collections\Collection;
 use Sonata\UserBundle\Model\UserInterface;
+use Ob\HighchartsBundle\Highcharts\Highchart;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -23,7 +24,7 @@ class ExamController extends Controller
         $exam = null;
         $answered = $showExam  = $previous =$next = false;
         $explanation = true;
-        if($idExam != -1)
+        if($idExam != null)
         {
            $exam = $this->getDoctrine()
             ->getRepository('EntityBundle:Exam')
@@ -42,9 +43,11 @@ class ExamController extends Controller
         ->findOneById($id);
 
         if (!$question) {
-            throw $this->createNotFoundException(
-                'No question found for id '.$id
-            );
+           return $this->render('MainBundle:Forms:question.html.twig', 
+                array(
+                    'QuestionId' => -1,));
+            
+            
         }
         
         $answers = $this->getDoctrine()
@@ -68,6 +71,7 @@ class ExamController extends Controller
         }
         $option = -1;
         $prevId = $nextId = -1;
+        $examQuestion = null;
         if($exam != null)
         {
             $examQuestion = $this->getDoctrine()
@@ -342,6 +346,103 @@ class ExamController extends Controller
         
     }
     
+    public function searchAction()
+    {
+        return $this->render('MainBundle:Forms:selectQuestion.html.twig');
+    }
+    
+    public function searchQuestionAction()
+    {
+        $idQuestion=$_POST['idQuestion'];
+        if (is_numeric ( $idQuestion ))
+        {
+            return $this->questionAction(intval($idQuestion));
+        }
+        else {
+            return $this->questionAction(-1);
+        }
+        
+    }
+    
+    public function areaAction()
+    {
+        $types = $this->getDoctrine()
+            ->getRepository('EntityBundle:ExamType')
+            ->findAll();
+        $proceses = $this->getDoctrine()
+            ->getRepository('EntityBundle:ProccessGroup')
+            ->findAll();
+        $areas = $this->getDoctrine()
+            ->getRepository('EntityBundle:KnowledgeArea')
+            ->findAll();
+        return $this->render('MainBundle:Forms:selectArea.html.twig', 
+                array(
+                    'types' => $types,
+                    'proceses' => $proceses,
+                    'areas' => $areas,
+                ));
+    }
+    
+    public function areaExamAction()
+    {
+        $idType =$_POST['idType'];
+        $idTypeExam=$_POST['idTypeExam'];
+        $idProccessGroup=$_POST['idProccessGroup'];
+        $idKnowledgeArea=$_POST['idKnowledgeArea'];
+        $idGroup=$idProccessGroup;
+        
+        if($idType == 2)
+        {
+            $idGroup = $idKnowledgeArea;
+        }
+        
+        return $this->generateExamAction(-1, $idTypeExam , $idType , $idGroup);
+        
+        //return new \Symfony\Component\HttpFoundation\Response();
+    }
+    
+    public function reportAction($idExam)
+    {
+        $exam = $this->getDoctrine()
+            ->getRepository('EntityBundle:Exam')
+            ->findOneById($idExam); 
+        
+        $charts = $this->getCharts($exam);
+        $charts2 = $this->getCharts2($exam);
+        
+        $questions = $this->getDoctrine()
+            ->getRepository('EntityBundle:ExamQuestion')
+            ->findBy(array('exam' => $exam), array('order' => 'ASC'));
+        
+        $questions2 = array();
+        
+        foreach($questions as $question)
+        {
+            $correct = false;
+            if($question->getSolved() && $question->getAnswer()->getCorrect())
+            {
+                $correct = true;
+            }
+            $questions2 [] = array(
+           // array('Correctas', $correct),
+           // array('Incorrectas', $incorrect),
+           'id' => $question->getQuestion()->getId(),
+           'grupo' => $question->getQuestion()->getProccessGroup()->getName(),
+           'area'=> $question->getQuestion()->getKnowledgeArea()->getName(),
+           'correct' => $correct,
+         );
+        }
+        
+        return $this->render('MainBundle:Forms:examReport.html.twig',
+                array(
+                    'exam' => $exam,
+                    'charts' => $charts,
+                    'charts2' => $charts2,
+                    'questions' => $questions2,
+                ));
+        
+    }
+    
     private function createExam($idExamType =1, $idType = -1, $idGroup = -1)
     {
         $user = $this->get('security.context')->getToken()->getUser();
@@ -422,7 +523,7 @@ class ExamController extends Controller
 
                 $q2 = $this->rasndomizeArray($questions);
                 $numQuest = $this->totalQuestions($examType, $proc);
-                for ($x = 0; $x <= $numQuest; $x++)
+                for ($x = 0; $x < $numQuest; $x++)
                 {
                     $result[] = $q2[$x];
                 }
@@ -473,5 +574,170 @@ class ExamController extends Controller
             $result = $array;
         }
         return $result;
+    }
+    
+    
+    
+    private function getCharts($exam)
+    {
+        $graphics = array();
+        $proccess = $this->getDoctrine()
+            ->getRepository('EntityBundle:ProccessGroup')
+            ->findAll(); 
+        $count = 1;
+        foreach($proccess as $proc)
+        {
+            $graphics[] = $this->getChartMod($proc, $exam, 'proceso'.$count);
+            
+            
+            $count++;
+        }
+        return $graphics;
+    }
+    
+    private function getCharts2($exam)
+    {
+        $graphics = array();
+        $areas = $this->getDoctrine()
+            ->getRepository('EntityBundle:KnowledgeArea')
+            ->findAll(); 
+        $count = 1;
+        foreach($areas as $area)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $query =   $em->createQuery(
+                       'SELECT eq FROM EntityBundle:ExamQuestion eq '
+                       . 'JOIN eq.question q '
+                       . 'WHERE eq.exam = :exam AND q.knowledgeArea = :area'
+                       )->setParameters(array(
+
+
+                       'area'=> $area,
+                       'exam' => $exam    
+                    ));
+
+            try {
+                $questions =   $query->getResult();
+            } catch (\Doctrine\ORM\NoResultException $e) {
+                $questions = array();
+            }
+            
+            
+            $correct = 0;
+            foreach($questions as $question)
+            {
+                if($question->getSolved() && $question->getAnswer()->getCorrect())
+                {
+                    $correct++;
+                }
+            }
+
+            $total= sizeof($questions);
+
+            $incorrect =  $total - $correct;
+
+            if($total >0)
+            {
+            $percentage = ($correct/$total) *100;
+            }
+            else
+            {
+                $percentage = 'NA';
+            }
+            $data = array(
+               // array('Correctas', $correct),
+               // array('Incorrectas', $incorrect),
+               'Correctas' => $correct,
+               'Incorrectas' => $incorrect,
+               'Title'=> $area->getName(),
+               'Porcentaje' => $percentage,
+                'Total' => $total
+            );
+            $graphics[] = $data;
+            
+            
+            $count++;
+        }
+        return $graphics;
+    }
+    
+    
+    private function getChartMod($proccess, $exam, $idContainer){
+        
+        
+        $em = $this->getDoctrine()->getManager();
+        $query =   $em->createQuery(
+                   'SELECT eq FROM EntityBundle:ExamQuestion eq '
+                   . 'JOIN eq.question q '
+                   . 'WHERE eq.exam = :exam AND q.proccessGroup = :proccessGroup'
+                   )->setParameters(array(
+                       
+                       
+                   'proccessGroup'=> $proccess,
+                   'exam' => $exam    
+                ));
+           
+        try {
+            $questions =   $query->getResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            $questions = array();
+        }
+                   
+                   
+        
+
+        
+        $correct = 0;
+        foreach($questions as $question)
+        {
+            if($question->getSolved() && $question->getAnswer()->getCorrect())
+            {
+                $correct++;
+            }
+        }
+        
+        $total= sizeof($questions);
+        
+        $incorrect =  $total - $correct;
+        
+        if($total >0)
+        {
+        $percentage = ($correct/$total) *100;
+        }
+        else
+        {
+            $percentage = 'NA';
+        }
+        $data = array(
+           // array('Correctas', $correct),
+           // array('Incorrectas', $incorrect),
+           'Correctas' => $correct,
+           'Incorrectas' => $incorrect,
+           'Title'=> $proccess->getName(),
+           'Porcentaje' => $percentage,
+            'Total' => $total
+        );
+        
+        $ob = new Highchart();
+        $ob->chart->renderTo($idContainer);
+        $ob->chart->height('210');
+        $ob->credits->enabled(FALSE);
+        $ob->title->text($proccess->getName());
+        $ob->plotOptions->pie(array(
+            'allowPointSelect'  => true,
+            'cursor'    => 'pointer',
+            'dataLabels'    => array('enabled' => false),
+            'showInLegend'  => true
+        ));
+        $ob->series(array(array(
+                    'type' => 'pie',
+                    'name' => $proccess->getName(), 
+                    'data' => $data,
+                    'colorByPoint' => true,
+                    'colors' => array(
+                        '#85c558',
+                        '#EE382A'),
+                    )));
+        return $data;
     }
 }

@@ -78,9 +78,9 @@ class Builder extends ContainerAware
         $exam->addChild('Nuevo Examen', 
                            array('route' => 'exam'));
         $exam->addChild('Examen por Area', 
-                            array('uri' => '#'));
+                            array('route' => 'searchArea'));
         $exam->addChild('Pregunta', 
-                            array('uri' => '#'));
+                            array('route' => 'search'));
         
         $menu->addChild('Historial', array(
                 'route' => 'history',

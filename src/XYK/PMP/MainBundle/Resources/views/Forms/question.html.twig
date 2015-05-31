@@ -48,6 +48,18 @@
     }
             
 </script>
+{%if QuestionId == -1%}
+    <div class="panel panel-danger">
+  <div class="panel-heading">
+    <h3 class="panel-title">Error!!!</h3>
+  </div>
+  <div class="panel-body">
+    Pregunta ingresada no encontrada en nuestra base de datos
+  </div>
+</div>
+
+{%else%}
+
  <div class="panel panel-primary">
   <div class="panel-heading">
       <h3 class="panel-title"><span class="badge">{{QuestionId}}</span> {{ Title }} </h3>
@@ -73,7 +85,7 @@
                     <input type="radio"  name="question" value="{{Option2.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==2 %} checked {% endif %}>
                     {{Option2.description}}
                     {%if (Answered) and (Answer ==2)%}
-                        {%if Option1.correct%} 
+                        {%if Option2.correct%} 
                             <span class="label label-success">&#10004;</span>     
                         {%else%}
                             <span class="label label-danger">&#10008;</span>
@@ -87,7 +99,7 @@
                     <input type="radio"  name="question" value="{{Option3.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==3 %} checked {% endif %}>
                     {{Option3.description}}
                     {%if (Answered) and (Answer ==3)%}
-                        {%if Option1.correct%} 
+                        {%if Option3.correct%} 
                             <span class="label label-success">&#10004;</span>     
                         {%else%}
                             <span class="label label-danger">&#10008;</span>
@@ -100,7 +112,7 @@
                     <input type="radio"  name="question" value="{{Option4.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==4 %} checked {%endif%}>
                     {{Option4.description}}
                     {%if (Answered) and (Answer == 4)%}
-                        {%if Option1.correct%} 
+                        {%if Option4.correct%} 
                             <span class="label label-success">&#10004;</span>     
                         {%else%}
                             <span class="label label-danger">&#10008;</span>
@@ -121,10 +133,11 @@
             {% if ShowExplanation%}
                 <button id="btn_explanation"  class="btn btn-info" onclick="$( '#panel_explanation' ).toggle(); return false;">Explicación</button>
             {% endif %}
-            {% if IdExam != -1%}
+            {% if IdExam != null%}
                 <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_questions" onclick="return SolveQuestion({{ExamQuestion.id}});"  class="btn btn-default">Preguntas</a>
-            
-                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_finish"  class="btn btn-success" onclick="SolveQuestion({{ExamQuestion.id}}); FinishExam({{exam.id}}); return true;">Evaluar</a>
+                {%if not exam.finished %}
+                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_finish"  class="btn btn-success" onclick="return SolveQuestion({{ExamQuestion.id}}); ">Finalizar</a>
+                {% endif %}
             {% endif %}
         </div>
 
@@ -140,7 +153,7 @@
   </div>
 </div>  
         
-
+{%endif%}
 {% endblock content %} 
   
   

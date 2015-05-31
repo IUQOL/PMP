@@ -45,6 +45,16 @@
     </div>
     
     <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        
+        {% if exam.finished %} 
+        <div class="btn-group" role="group" >
+                
+                
+
+                    <a href="{{ path('report', {'idExam':exam.id}) }}" id="btn_finish"  class="btn btn-info btn-lg" >  <span class="badge">{{exam.percentage}}%</span> Resultado detallado</a>
+                
+        </div>
+        {%else %}
         <div class="btn-group" role="group" >
 
 
@@ -52,14 +62,7 @@
                 <a href="{{ path('exam', {'idExam':exam.id}) }}" id="btn_finish"  class="btn btn-success btn-lg  {% if exam.finished %} disabled {% endif %}" onclick="return FinishExam({{exam.id}});">Evaluar</a>
 
         </div>
-                {% if exam.finished %} 
-        <div class="btn-group" role="group" >
-                
-                
-
-                    <a href="#" id="btn_finish"  class="btn btn-info btn-lg" >Resultado</a>
-                
-        </div>
+            
         {% endif %}
     </div>
     

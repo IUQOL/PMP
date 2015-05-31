@@ -59,17 +59,23 @@ class UserAdmin extends Admin
         $listMapper
             ->addIdentifier('username')
             ->add('email')
-            ->add('groups')
+            //->add('groups')
             ->add('enabled', null, array('editable' => true))
             ->add('locked', null, array('editable' => true))
+            
             ->add('createdAt')
+           // ->add('_action', 'actions', array(
+           //     'actions' => array(
+           //         'show' => array(),
+           //     )
+           // ))
         ;
 
-        if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
-            $listMapper
-                ->add('impersonating', 'string', array('template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig'))
-            ;
-        }
+//        if ($this->isGranted('ROLE_ALLOWED_TO_SWITCH')) {
+//            $listMapper
+//                ->add('impersonating', 'string', array('template' => 'SonataUserBundle:Admin:Field/impersonating.html.twig'))
+//            ;
+//        }
     }
 
     /**
@@ -78,7 +84,7 @@ class UserAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $filterMapper)
     {
         $filterMapper
-            ->add('id')
+            //->add('id')
             ->add('username')
             ->add('locked')
             ->add('email')
@@ -103,14 +109,14 @@ class UserAdmin extends Admin
                 ->add('dateOfBirth')
                 ->add('firstname')
                 ->add('lastname')
-                ->add('website')
-                ->add('biography')
+             //   ->add('website')
+             //   ->add('biography')
                 ->add('gender')
-                ->add('locale')
-                ->add('timezone')
+             //   ->add('locale')
+             //   ->add('timezone')
                 ->add('phone')
             ->end()
-            ->with('Social')
+          /*  ->with('Social')
                 ->add('facebookUid')
                 ->add('facebookName')
                 ->add('twitterUid')
@@ -121,7 +127,7 @@ class UserAdmin extends Admin
             ->with('Security')
                 ->add('token')
                 ->add('twoStepVerificationCode')
-            ->end()
+            ->end()*/
         ;
     }
 
@@ -130,68 +136,62 @@ class UserAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $now = new \DateTime();
+        // define group zoning
+        
         $formMapper
             ->with('General')
                 ->add('username')
                 ->add('email')
-                ->add('plainPassword', 'text', array(
-                    'required' => (!$this->getSubject() || is_null($this->getSubject()->getId()))
+                ->add('plainPassword', 'repeated', array(
+                    'type' => 'password',
+                    'required' => (!$this->getSubject() || is_null($this->getSubject()->getId())),
+                    'options' => array('translation_domain' => 'FOSUserBundle'),
+                    'first_options' => array('label' => 'form.password'),
+                    'second_options' => array('label' => 'form.password_confirmation'),
+                    'invalid_message' => 'fos_user.password.mismatch',
                 ))
             ->end()
-            ->with('Groups')
+           
+            ->with('Profile')
+                //
+                ->add('firstname', null, array('required' => false))
+                ->add('lastname', null, array('required' => false))
+             
+                ->add('gender', 'sonata_user_gender', array(
+                    'required' => true,
+                    'translation_domain' => $this->getTranslationDomain()
+                ))
+//                ->add('dateOfBirth', 'sonata_type_date_picker', array(
+//                'years' => range(1900, $now->format('Y')),
+//                'dp_min_date' => '1-1-1900',
+//                'dp_max_date' => $now->format('c'),
+//                'required' => false
+//            ))
+                ->add('dateOfBirth', 'birthday', array('required' => false))
+            ->add('phone', null, array('required' => false))
+            ->end()
+          
+   
+        ;
+
+        if ($this->getSubject() && !$this->getSubject()->hasRole('ROLE_SUPER_ADMIN')) {
+            $formMapper
+                ->with('Groups')
+
                 ->add('groups', 'sonata_type_model', array(
                     'required' => false,
                     'expanded' => true,
                     'multiple' => true
                 ))
-            ->end()
-            ->with('Profile')
-                ->add('dateOfBirth', 'birthday', array('required' => false))
-                ->add('firstname', null, array('required' => false))
-                ->add('lastname', null, array('required' => false))
-                ->add('website', 'url', array('required' => false))
-                ->add('biography', 'text', array('required' => false))
-                ->add('gender', 'sonata_user_gender', array(
-                    'required' => true,
-                    'translation_domain' => $this->getTranslationDomain()
-                ))
-                ->add('locale', 'locale', array('required' => false))
-                ->add('timezone', 'timezone', array('required' => false))
-                ->add('phone', null, array('required' => false))
-            ->end()
-            ->with('Social')
-                ->add('facebookUid', null, array('required' => false))
-                ->add('facebookName', null, array('required' => false))
-                ->add('twitterUid', null, array('required' => false))
-                ->add('twitterName', null, array('required' => false))
-                ->add('gplusUid', null, array('required' => false))
-                ->add('gplusName', null, array('required' => false))
-            ->end()
-        ;
-
-        if ($this->getSubject() && !$this->getSubject()->hasRole('ROLE_SUPER_ADMIN')) {
-            $formMapper
-                ->with('Management')
-                    ->add('realRoles', 'sonata_security_roles', array(
-                        'label'    => 'form.label_roles',
-                        'expanded' => true,
-                        'multiple' => true,
-                        'required' => false
-                    ))
-                    ->add('locked', null, array('required' => false))
-                    ->add('expired', null, array('required' => false))
-                    ->add('enabled', null, array('required' => false))
-                    ->add('credentialsExpired', null, array('required' => false))
+                ->add('locked', null, array('required' => false))
+                ->add('expired', null, array('required' => false))
+                ->add('enabled', null, array('required' => false))
+                ->add('credentialsExpired', null, array('required' => false))
                 ->end()
             ;
         }
 
-        $formMapper
-            ->with('Security')
-                ->add('token', null, array('required' => false))
-                ->add('twoStepVerificationCode', null, array('required' => false))
-            ->end()
-        ;
     }
 
     /**
