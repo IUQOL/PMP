@@ -21,8 +21,8 @@
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="{{ asset('bundles/main/bootstrap/js/ie-emulation-modes-warning.js') }}"></script>
 
+    
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -95,9 +95,11 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ asset('bundles/main/js/jquery-1.11.3.min.js') }}"></script>
-    <script src="{{ asset('bundles/main/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script language="JavaScript" type="text/javascript" src="{{ asset('bundles/main/js/jquery-1.11.3.min.js') }}"></script>
+    <script language="JavaScript" type="text/javascript" src="{{ asset('bundles/main/jquery.countdown/jquery.countdown.min.js') }}"></script>
+    <script language="JavaScript" type="text/javascript" src="{{ asset('bundles/main/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{{ asset('bundles/main/bootstrap/js/ie10-viewport-bug-workaround.js') }}"></script>
+    {% block morejs %}
+    {% endblock morejs %}
   </body>
 </html>

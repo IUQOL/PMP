@@ -1,53 +1,21 @@
 {% extends 'MainBundle:Master:master.html.twig' %}
-{% block content %}
- <script language="javascript">
-    function SolveQuestion(idExamQuestion){
-        var idAnswer = $('input:radio[name=question]:checked').val();
-        $.ajax({
-            url: '{{ path('solveQuestion') }}',
-            type: "POST",
-            data: {
-                'idExamQuestion': idExamQuestion,
-                'idAnswer': idAnswer
-            },
-            success: function(resp) { //Limpia el cuerpo de la tabla para incluir la nueva información
-                var jsonResp = JSON.parse(resp);
-                console.log(jsonResp);
-              
-              
-               return true;
-            },
-            onFailure: function() {
-                //alert('Se ha producido un error');
-            }
-        });
-      
-    }
+{%block breadcrumb %}
+<div class="container-fluid">
     
-    function FinishExam(idExam){
-        
-        $.ajax({
-            url: '{{ path('finishExam') }}',
-            type: "POST",
-            data: {
-                'idExam': idExam
-               
-            },
-            success: function(resp) { //Limpia el cuerpo de la tabla para incluir la nueva información
-                var jsonResp = JSON.parse(resp);
-                console.log(jsonResp);
-              
-              
-               return true;
-            },
-            onFailure: function() {
-                //alert('Se ha producido un error');
-            }
-        });
-      
-    }
+    
+    
+        <ol class="breadcrumb">
+            {%if not Time%}
+            <li><a href="{{path ('homepage')}}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
+            <li class="active"> - {% block breadcrumblink %} {% endblock breadcrumblink %}</li>
+            <!-- Time -->
+            {%endif%}
+        </ol>
+   
             
-</script>
+</div>
+{%endblock breadcrumb%}
+{% block content %}
 {%if QuestionId == -1%}
     <div class="panel panel-danger">
   <div class="panel-heading">
@@ -59,66 +27,65 @@
 </div>
 
 {%else%}
+    
 
  <div class="panel panel-primary">
   <div class="panel-heading">
-      <h3 class="panel-title"><span class="badge">{{QuestionId}}</span> {{ Title }} </h3>
+      <h3 class="panel-title"> <span class="badge">{% if IdExam != null%}  {{Count}} / {{Total}} {%endif%}</span> {{ Title }}    {%if Time%}&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge pull-right" id="clock">{%endif%}</span> </h3>
   </div>
   <div class="panel-body">
       <h6>
-        
-            <div class="radio">
-                <label>
-                    <input type="radio"  name="question" value="{{Option1.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==1 %} checked {%endif%}>
-                    {{Option1.description}}
-                    {%if (Answered) and (Answer ==1)%}
-                        {%if Option1.correct%} 
-                            <span class="label label-success">&#10004;</span>     
-                        {%else%}
-                            <span class="label label-danger">&#10008;</span>
-                        {%endif%}
-                    {%endif%}  
-                </label>
+            <div class="input-group">
+                <span class="badge" >A</span>&nbsp;
+                <input type="radio"  name="question" value="{{Option1.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==1 %} checked {%endif%}>
+                &nbsp;{{Option1.description}}
+                {%if (Answered) and (Answer ==1)%}
+                    {%if Option1.correct%} 
+                        <span class="label label-success">&#10004;</span>     
+                    {%else%}
+                        <span class="label label-danger">&#10008;</span>
+                    {%endif%}
+                {%endif%}  
             </div>
-            <div class="radio">
-                <label>
-                    <input type="radio"  name="question" value="{{Option2.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==2 %} checked {% endif %}>
-                    {{Option2.description}}
-                    {%if (Answered) and (Answer ==2)%}
-                        {%if Option2.correct%} 
-                            <span class="label label-success">&#10004;</span>     
-                        {%else%}
-                            <span class="label label-danger">&#10008;</span>
-                        {%endif%}
-                    {%endif%}  
-                </label>
+            <div class="input-group">
+                <span class="badge" >B</span>&nbsp;
+                <input type="radio"  name="question" value="{{Option2.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==2 %} checked {% endif %}>
+                &nbsp;{{Option2.description}}
+                {%if (Answered) and (Answer ==2)%}
+                    {%if Option2.correct%} 
+                        <span class="label label-success">&#10004;</span>     
+                    {%else%}
+                        <span class="label label-danger">&#10008;</span>
+                    {%endif%}
+                {%endif%}  
+             
             </div>
-            <div class="radio">
-                <label>
+            <div class="input-group">
+                <span class="badge" >C</span>&nbsp;
           
-                    <input type="radio"  name="question" value="{{Option3.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==3 %} checked {% endif %}>
-                    {{Option3.description}}
-                    {%if (Answered) and (Answer ==3)%}
-                        {%if Option3.correct%} 
-                            <span class="label label-success">&#10004;</span>     
-                        {%else%}
-                            <span class="label label-danger">&#10008;</span>
-                        {%endif%}
-                    {%endif%}  
-                </label>
+                <input type="radio"  name="question" value="{{Option3.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==3 %} checked {% endif %}>
+                &nbsp;{{Option3.description}}
+                {%if (Answered) and (Answer ==3)%}
+                    {%if Option3.correct%} 
+                        <span class="label label-success">&#10004;</span>     
+                    {%else%}
+                        <span class="label label-danger">&#10008;</span>
+                    {%endif%}
+                {%endif%}  
+             
             </div>
-            <div class="radio">
-                <label>
-                    <input type="radio"  name="question" value="{{Option4.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==4 %} checked {%endif%}>
-                    {{Option4.description}}
-                    {%if (Answered) and (Answer == 4)%}
-                        {%if Option4.correct%} 
-                            <span class="label label-success">&#10004;</span>     
-                        {%else%}
-                            <span class="label label-danger">&#10008;</span>
-                        {%endif%}
-                    {%endif%}  
-                </label>
+            <div class="input-group">
+                <span class="badge" >D</span>&nbsp;
+                <input type="radio"  name="question" value="{{Option4.id}}" {% if Answered  %} disabled {%endif%} {%if Answer ==4 %} checked {%endif%}>
+                &nbsp;{{Option4.description}}
+                {%if (Answered) and (Answer == 4)%}
+                    {%if Option4.correct%} 
+                        <span class="label label-success">&#10004;</span>     
+                    {%else%}
+                        <span class="label label-danger">&#10008;</span>
+                    {%endif%}
+                {%endif%}  
+                
             </div>
     </h6>
         <div class="btn-group" role="group" aria-label="...">
@@ -134,14 +101,40 @@
                 <button id="btn_explanation"  class="btn btn-info" onclick="$( '#panel_explanation' ).toggle(); return false;">Explicación</button>
             {% endif %}
             {% if IdExam != null%}
-                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_questions" onclick="return SolveQuestion({{ExamQuestion.id}});"  class="btn btn-default">Preguntas</a>
+                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_questions" onclick=" SolveQuestion({{ExamQuestion.id}}); return true;"  class="btn btn-default">Preguntas</a>
                 {%if not exam.finished %}
-                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_finish"  class="btn btn-success" onclick="return SolveQuestion({{ExamQuestion.id}}); ">Finalizar</a>
+                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_finish"  class="btn btn-success" onclick=" FinishExam({{IdExam}},{{ExamQuestion.id}}); return true;  ">Finalizar</a>
                 {% endif %}
             {% endif %}
         </div>
 
-  </div>
+    </div>
+    <div class="panel-footer"> 
+        
+        <div class="row">
+            
+            <div class="col-xs-6 col-sm-9 col-md-8 col-lg-11">
+             
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="revision" name="revision"> Revisión
+                        </label>
+                    </div>
+                   
+              
+            </div>
+            <div class="col-xs-6 col-sm-3 col-md-4 col-lg-1">
+                <div>
+                    <span class="badge  pull-right  ">ID: {{QuestionId}}</span>
+                </div>
+            </div>
+         
+        </div>
+        
+    </div>
+              
+
     
 </div>  
 <div id="panel_explanation" class="panel panel-info" style="display: none">
@@ -149,12 +142,99 @@
     <h3 class="panel-title">Explicación</h3>
   </div>
   <div class="panel-body">
-     {{ Explanation}}
+        -La respuesta correcta es la  &nbsp;
+        {%if (Answered)%}
+            {%if Option1.correct == 1%}
+            <span class="badge" >A</span>
+            {%elseif Option2.correct == 2%}
+            <span class="badge" >B</span>
+            {%elseif Option3.correct == 3%}
+            <span class="badge" >C</span>
+            {%elseif Option4.correct == 4%}
+            <span class="badge" >D</span>
+            {%endif%}
+        {%endif%}
+           
+        <br>
+        -{{ Explanation}}
   </div>
 </div>  
         
 {%endif%}
+
+
+
 {% endblock content %} 
+
+{% block morejs %}
+    
+ <script language="JavaScript" type="text/javascript">
+    function SolveQuestion(idExamQuestion){
+        var idAnswer = $('input:radio[name=question]:checked').val();
+        $.ajax({
+            url: '{{ path('solveQuestion') }}',
+            type: "POST",
+            data: {
+                'idExamQuestion': idExamQuestion,
+                'idAnswer': idAnswer
+            },
+            success: function(resp) { //Limpia el cuerpo de la tabla para incluir la nueva información
+                var jsonResp = JSON.parse(resp);
+                console.log(jsonResp);
+              
+              
+              
+            },
+            onFailure: function() {
+                //alert('Se ha producido un error');
+            }
+        });
+      
+    }
+    
+    function FinishExam(idExam, idExamQuestion){
+        SolveQuestion(idExamQuestion);
+        $.ajax({
+            url: '{{ path('finishExam') }}',
+            type: "POST",
+            data: {
+                'idExam': idExam
+               
+            },
+            success: function(resp) { //Limpia el cuerpo de la tabla para incluir la nueva información
+                var jsonResp = JSON.parse(resp);
+                console.log(jsonResp);
+              
+              
+              
+            },
+            onFailure: function() {
+                //alert('Se ha producido un error');
+            }
+        });
+      
+    }
+    function getTimer() {
+        return new Date({{Date}}).valueOf();
+    }
+    
+    
+
+    var clock = $('#clock');
+    
+    clock.countdown(getTimer())
+    .on('update.countdown',function(event) {
+        $(this).html(event.strftime('%H:%M:%S'));
+    })
+    .on('finish.countdown', function(event) {
+        FinishExam({{IdExam}},{{ExamQuestion.id}}); 
+        window.open('{{ path('exam', {'idExam':IdExam}) }}','_self');
+    });
+    
+    
+            
+</script>
+    {% endblock morejs %}
   
   
 

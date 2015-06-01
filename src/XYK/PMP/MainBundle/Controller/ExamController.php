@@ -24,6 +24,14 @@ class ExamController extends Controller
         $exam = null;
         $answered = $showExam  = $previous =$next = false;
         $explanation = true;
+        
+        $total =0;
+        $count =0;
+        $timer = 144000;
+        $date =0;
+         $time = false;
+                    
+         
         if($idExam != null)
         {
            $exam = $this->getDoctrine()
@@ -31,11 +39,20 @@ class ExamController extends Controller
             ->findOneById($idExam); 
            $answered = $exam->getFinished();
            $showExam = true; 
+           $total = $exam->getExamType()->getTotalQuestions();
+           $previous = $next = true;
            if(!$answered)
            {
                $explanation = false;
+               $time = true;
+               $timer = $timer * $total;
+               $date = $exam->getCurrent()->getTimestamp()*1000 + $timer;
+               
+               
            }
-           $previous = $next = true;
+           
+           
+           
         }
         
         $question = $this->getDoctrine()
@@ -77,7 +94,7 @@ class ExamController extends Controller
             $examQuestion = $this->getDoctrine()
             ->getRepository('EntityBundle:ExamQuestion')
             ->findOneBy(array('exam' => $exam, 'question' => $question));
-            
+            $count = $examQuestion->getOrder(); 
             if($examQuestion->getSolved())
             {
                 if($examQuestion->getAnswer()->getId() == $option1->getId())
@@ -156,6 +173,12 @@ class ExamController extends Controller
                     'Answered' => $answered,
                     'Answer' => $option,
                     'IdExam' => $idExam,
+                    'Total' => $total,
+                    'Count' => $count,
+                    'Timer' => $timer,
+                    'Date'  => $date,
+                    'Time'  => $time,
+                   
                     'ExamQuestion' => $examQuestion,
                     'QuestionId' => $question->getId(),
                 ));
