@@ -3,7 +3,7 @@ XYK\PMP\EntityBundle\Entity\Answer:
     table: answer
     id:
         id:
-            type: integer
+            type: bigint
             nullable: false
             unsigned: false
             comment: ''

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Answer
 {
     /**
-     * @var integer
+     * @var bigint
      */
     private $id;
 
@@ -38,7 +38,7 @@ class Answer
     /**
      * Get id
      *
-     * @return integer 
+     * @return bigint 
      */
     public function getId()
     {

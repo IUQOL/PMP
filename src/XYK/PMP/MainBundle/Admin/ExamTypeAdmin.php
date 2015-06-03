@@ -48,6 +48,10 @@ class ExamTypeAdmin extends Admin
             ->add('name')
             ->add('description')
             ->add('totalQuestions')
+            ->add('groupName')
+            ->add('groupQuestions')
+            ->add('areaName')
+            ->add('areaQuestions')
         ;
     }
 
@@ -60,6 +64,10 @@ class ExamTypeAdmin extends Admin
             ->add('name')
             ->add('description')
             ->add('totalQuestions')
+            ->add('groupName')
+            ->add('groupQuestions')
+            ->add('areaName')
+            ->add('areaQuestions')    
         ;
     }
     

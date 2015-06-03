@@ -31,7 +31,7 @@ searchQuestion:
     defaults: { _controller: MainBundle:Exam:searchQuestion}
     
 searchArea:
-    path: /area
+    path: /area/{idTypeExam}/{idType}
     defaults: { _controller: MainBundle:Exam:area}
     
 areaExam:

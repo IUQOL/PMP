@@ -33,6 +33,11 @@ class ProccessGroup
      * @var \DateTime
      */
     private $current;
+    
+    /**
+     * @var \XYK\PMP\EntityBundle\Entity\ExamType
+     */
+    private $examType;
 
 
     /**
@@ -135,6 +140,29 @@ class ProccessGroup
     public function getCurrent()
     {
         return $this->current;
+    }
+    
+     /**
+     * Set examType
+     *
+     * @param \XYK\PMP\EntityBundle\Entity\ExamType $examType
+     * @return ProccessGroup
+     */
+    public function setExamType(\XYK\PMP\EntityBundle\Entity\ExamType $examType = null)
+    {
+        $this->examType = $examType;
+
+        return $this;
+    }
+
+    /**
+     * Get examType
+     *
+     * @return \XYK\PMP\EntityBundle\Entity\ExamType 
+     */
+    public function getExamType()
+    {
+        return $this->examType;
     }
     
     /**

@@ -1,7 +1,76 @@
 {% extends 'MainBundle:Master:master.html.twig' %}
 {% block content %}
- <script language="javascript">
-   
+ 
+    <div class="row">
+        
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions1 }  %}
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions2 }  %}
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions3 }  %}
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions4 }  %}
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions5 }  %}
+        
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions6 }  %}
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions7 }  %}
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions8 }  %}
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions9 }  %}
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions10 }  %}
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions11 }  %}
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions12 }  %}
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-1">
+            <div class="list-group disabled ">
+                <a href="#" class="list-group-item">
+                   <span class="label label-warning">[R]</span> 
+                   Revisión
+                </a>
+                 <a href="#" class="list-group-item">
+                   <span class="badge">&#10059;</span> 
+                   Resuelta
+                </a>
+                <a href="#" class="list-group-item">
+                   <span class="label label-primary">#</span>
+                   Número pregunta
+                </a>
+                <a href="#" class="list-group-item">
+                   <span class="label label-success">#</span>
+                  Correcta
+                </a>
+                <a href="#" class="list-group-item">
+                   <span class="label label-danger">#</span>
+                  Incorrecta
+                </a>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        
+        {% if exam.finished %} 
+        <div class="btn-group" role="group" >
+                
+                
+
+                    <a href="{{ path('report', {'idExam':exam.id}) }}" id="btn_finish"  class="btn btn-info btn-lg" >  <span class="badge">{{exam.percentage}}%</span> Resultado detallado</a>
+                
+        </div>
+        {%else %}
+        <div class="btn-group" role="group" >
+
+
+
+                <a href="{{ path('exam', {'idExam':exam.id}) }}" id="btn_finish"  class="btn btn-success btn-lg  {% if exam.finished %} disabled {% endif %}" onclick="return FinishExam({{exam.id}});"><span class="badge pull-right" id="clock"></span> Evaluar</a>
+
+        </div>
+            
+        {% endif %}
+    </div>
+    
+{% endblock content%}
+
+{% block morejs %}
+    
+ <script language="JavaScript" type="text/javascript">
+    
     
     function FinishExam(idExam){
         
@@ -25,46 +94,25 @@
         });
       
     }
+    function getTimer() {
+        return new Date({{Date}}).valueOf();
+    }
     
+{%if not Time%}
+
+    var clock = $('#clock');
+    
+    clock.countdown(getTimer())
+    .on('update.countdown',function(event) {
+        $(this).html(event.strftime('%H:%M:%S'));
+    })
+    .on('finish.countdown', function(event) {
+        FinishExam({{exam.id}}); 
+        window.open('{{ path('exam', {'idExam':exam.id}) }}','_self');
+    });
+    
+    {%endif%}
             
-</script>
-    <div class="row">
-        
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions1 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions2 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions3 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions4 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions5 }  %}
-        
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions6 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions7 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions8 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions9 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions10 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions11 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions12 }  %}
-    </div>
-    
-    <div class="btn-group btn-group-justified" role="group" aria-label="...">
-        
-        {% if exam.finished %} 
-        <div class="btn-group" role="group" >
-                
-                
+</script>   
 
-                    <a href="{{ path('report', {'idExam':exam.id}) }}" id="btn_finish"  class="btn btn-info btn-lg" >  <span class="badge">{{exam.percentage}}%</span> Resultado detallado</a>
-                
-        </div>
-        {%else %}
-        <div class="btn-group" role="group" >
-
-
-
-                <a href="{{ path('exam', {'idExam':exam.id}) }}" id="btn_finish"  class="btn btn-success btn-lg  {% if exam.finished %} disabled {% endif %}" onclick="return FinishExam({{exam.id}});">Evaluar</a>
-
-        </div>
-            
-        {% endif %}
-    </div>
-    
-{% endblock content%}
+{%endblock %}  

@@ -3,7 +3,7 @@ XYK\PMP\EntityBundle\Entity\ExamQuestion:
     table: exam_question
     id:
         id:
-            type: integer
+            type: bigint
             nullable: false
             unsigned: false
             comment: ''
@@ -22,6 +22,12 @@ XYK\PMP\EntityBundle\Entity\ExamQuestion:
             type: boolean
             nullable: true
             comment: ''
+        
+        revision:
+            type: boolean
+            nullable: true
+            comment: ''
+        
         current:
             type: datetime
             nullable: false

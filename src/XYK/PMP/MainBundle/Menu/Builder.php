@@ -82,8 +82,25 @@ class Builder extends ContainerAware
             }
             if ($security->isGranted('ROLE_CATEGORY_EXAM') || $security->isGranted('ROLE_SUPER_ADMIN'))
             {
-            $exam->addChild('Examen por Area', 
-                                array('route' => 'searchArea'));
+                
+                $typeExam = $types = $this->container->get('doctrine')
+                    ->getRepository('EntityBundle:ExamType')
+                    ->findAll();
+                
+                foreach($typeExam as $type)
+                {
+                    $exam->addChild('Examen '.$type->getGroupName(), 
+                                array('route' => 'searchArea',
+                                      'routeParameters' => array('idType' => 1, 'idTypeExam' => $type->getId()),
+                                    ));
+                    
+                    $exam->addChild('Examen '.$type->getAreaName(), 
+                                array('route' => 'searchArea',
+                                      'routeParameters' => array('idType' => 2, 'idTypeExam' => $type->getId()),
+                                    ));
+                }
+                
+            
             }
             if ($security->isGranted('ROLE_SEARCH_QUESTION') || $security->isGranted('ROLE_SUPER_ADMIN'))
             {

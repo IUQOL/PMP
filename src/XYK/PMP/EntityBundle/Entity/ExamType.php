@@ -18,6 +18,16 @@ class ExamType
      * @var string
      */
     private $name;
+    
+    /**
+     * @var string
+     */
+    private $areaName;
+    
+    /**
+     * @var string
+     */
+    private $groupName;
 
     /**
      * @var string
@@ -28,6 +38,16 @@ class ExamType
      * @var integer
      */
     private $totalQuestions;
+    
+    /**
+     * @var integer
+     */
+    private $areaQuestions;
+    
+    /**
+     * @var integer
+     */
+    private $groupQuestions;
 
     /**
      * @var \DateTime
@@ -67,7 +87,53 @@ class ExamType
     {
         return $this->name;
     }
+    
+    /**
+     * Set areaName
+     *
+     * @param string $areaName
+     * @return ExamType
+     */
+    public function setAreaName($areaName)
+    {
+        $this->areaName = $areaName;
 
+        return $this;
+    }
+
+    /**
+     * Get areaName
+     *
+     * @return string 
+     */
+    public function getAreaName()
+    {
+        return $this->areaName;
+    }
+
+    /**
+     * Set group Name
+     *
+     * @param string $groupName
+     * @return ExamType
+     */
+    public function setGroupName($groupName)
+    {
+        $this->groupName = $groupName;
+
+        return $this;
+    }
+
+    /**
+     * Get group Name
+     *
+     * @return string 
+     */
+    public function getGroupName()
+    {
+        return $this->groupName;
+    }
+    
     /**
      * Set description
      *
@@ -114,6 +180,53 @@ class ExamType
         return $this->totalQuestions;
     }
 
+    /**
+     * Set Area Questions
+     *
+     * @param integer $areaQuestions
+     * @return ExamType
+     */
+    public function setAreaQuestions($areaQuestions)
+    {
+        $this->areaQuestions = $areaQuestions;
+
+        return $this;
+    }
+
+    /**
+     * Get Area Questions
+     *
+     * @return integer 
+     */
+    public function getAreaQuestions()
+    {
+        return $this->areaQuestions;
+    }
+    
+    /**
+     * Set Group Questions
+     *
+     * @param integer $groupQuestions
+     * @return ExamType
+     */
+    public function setGroupQuestions($groupQuestions)
+    {
+        $this->groupQuestions = $groupQuestions;
+
+        return $this;
+    }
+
+    /**
+     * Get Group Questions
+     *
+     * @return integer 
+     */
+    public function getGroupQuestions()
+    {
+        return $this->groupQuestions;
+    }
+    
+    
     /**
      * Set current
      *

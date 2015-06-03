@@ -3,7 +3,7 @@ XYK\PMP\EntityBundle\Entity\Exam:
     table: exam
     id:
         id:
-            type: integer
+            type: bigint
             nullable: false
             unsigned: false
             comment: ''
@@ -22,6 +22,16 @@ XYK\PMP\EntityBundle\Entity\Exam:
             scale: 0
             comment: ''
             default: '0::real'
+        group:
+            type: boolean
+            nullable: false
+            comment: ''
+            column: group_exam
+        area:
+            type: boolean
+            nullable: false
+            comment: ''
+            column: area_exam
         current:
             type: datetime
             nullable: false

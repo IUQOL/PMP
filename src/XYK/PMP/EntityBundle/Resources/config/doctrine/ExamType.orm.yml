@@ -28,8 +28,37 @@ XYK\PMP\EntityBundle\Entity\ExamType:
             nullable: false
             unsigned: true
             comment: ''
+        groupQuestions:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            column: group_questions
+        areaQuestions:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            column: area_questions
         current:
             type: datetime
             nullable: false
             comment: ''
+        groupName:
+            type: string
+            nullable: false
+            length: 150
+            fixed: false
+            comment: ''
+            column: group_name
+        areaName:
+            type: string
+            nullable: false
+            length: 150
+            fixed: false
+            comment: ''
+            column: area_name
+            
+            
+    
     lifecycleCallbacks: {  }

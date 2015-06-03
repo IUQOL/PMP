@@ -31,7 +31,7 @@ class ProccessGroupAdmin extends Admin
             ->addIdentifier('name')
             ->add('description')
             ->add('percentage')
-           
+            ->add('examType')  
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -51,6 +51,7 @@ class ProccessGroupAdmin extends Admin
             ->add('name')
             ->add('description')
             ->add('percentage')
+            ->add('examType')  
      
         ;
     }
@@ -65,6 +66,7 @@ class ProccessGroupAdmin extends Admin
             ->add('name')
             ->add('description')
             ->add('percentage')
+            ->add('examType')  
 
         ;
     }

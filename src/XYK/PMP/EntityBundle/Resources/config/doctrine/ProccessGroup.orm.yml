@@ -32,4 +32,14 @@ XYK\PMP\EntityBundle\Entity\ProccessGroup:
             type: datetime
             nullable: false
             comment: ''
+    manyToOne:
+        examType:
+            targetEntity: ExamType
+            cascade: ["persist"]
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_exam_type:
+                    referencedColumnName: id
+            orphanRemoval: false
     lifecycleCallbacks: {  }

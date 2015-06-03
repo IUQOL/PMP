@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ExamQuestion
 {
     /**
-     * @var integer
+     * @var bigint
      */
     private $id;
 
@@ -24,6 +24,11 @@ class ExamQuestion
      */
     private $solved;
 
+    /**
+     * @var boolean
+     */
+    private $revision;
+    
     /**
      * @var \DateTime
      */
@@ -48,7 +53,7 @@ class ExamQuestion
     /**
      * Get id
      *
-     * @return integer 
+     * @return bigint 
      */
     public function getId()
     {
@@ -99,6 +104,29 @@ class ExamQuestion
     public function getSolved()
     {
         return $this->solved;
+    }
+    
+    /**
+     * Set solved
+     *
+     * @param boolean $revision
+     * @return ExamQuestion
+     */
+    public function setRevision($revision)
+    {
+        $this->revision = $revision;
+
+        return $this;
+    }
+
+    /**
+     * Get revision
+     *
+     * @return boolean 
+     */
+    public function getRevision()
+    {
+        return $this->revision;
     }
 
     /**

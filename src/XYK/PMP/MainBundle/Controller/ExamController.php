@@ -27,7 +27,7 @@ class ExamController extends Controller
         
         $total =0;
         $count =0;
-        $timer = 144000;
+        $timer = 72000;
         $date =0;
          $time = false;
                     
@@ -39,11 +39,33 @@ class ExamController extends Controller
             ->findOneById($idExam); 
            $answered = $exam->getFinished();
            $showExam = true; 
-           $total = $exam->getExamType()->getTotalQuestions();
+           
+           
            $previous = $next = true;
+           if($exam->getGroup())
+           {
+               $total = $exam->getExamType()->getGroupQuestions();
+           }
+           elseif($exam->getArea())
+           {
+               $total = $exam->getExamType()->getAreaQuestions();
+           }
+           else
+           {
+               $total = $exam->getExamType()->getTotalQuestions();
+           }
+           
            if(!$answered)
            {
-               $explanation = false;
+               if($exam->getGroup() || $exam->getArea())
+               {
+                  $explanation = true; 
+               }
+               else
+               {
+                   $explanation = false; 
+               }
+               
                $time = true;
                $timer = $timer * $total;
                $date = $exam->getCurrent()->getTimestamp()*1000 + $timer;
@@ -196,6 +218,7 @@ class ExamController extends Controller
     public function generateExamAction($idExam = -1, $idExamType =1, $idType = -1, $idGroup = -1)
     {
         $exam = null;
+        $timer = 72000;
         if($idExam == -1)
         {
             $exam = $this->createExam($idExamType, $idType, $idGroup);
@@ -268,8 +291,23 @@ class ExamController extends Controller
             $questions12[] =  $questions[$i];
         }
         
+        $total=0;
+        if($exam->getGroup())
+           {
+               $total = $exam->getExamType()->getGroupQuestions();
+           }
+           elseif($exam->getArea())
+           {
+               $total = $exam->getExamType()->getAreaQuestions();
+           }
+           else
+           {
+               $total = $exam->getExamType()->getTotalQuestions();
+           }
         
+        $date = $exam->getCurrent()->getTimestamp()*1000 + ($timer*$total);
         
+        $time = $exam->getFinished();
         
         return $this->render('MainBundle:Forms:exam.html.twig', 
                 array(
@@ -286,6 +324,8 @@ class ExamController extends Controller
                     'questions10' => $questions10,
                     'questions11' => $questions11,
                     'questions12' => $questions12,
+                    'Date' => $date,
+                    'Time' => $time,
                     
                     
                 ));
@@ -297,24 +337,26 @@ class ExamController extends Controller
         
         $idExamQuestion=$_POST['idExamQuestion'];
         $idAnswer= $_POST['idAnswer'];
+        $revision= $_POST['revision'];
     
         $answer = $this->getDoctrine()
             ->getRepository('EntityBundle:Answer')
             ->findOneById($idAnswer);
         
-        if ($answer) {
+        
             $em = $this->getDoctrine()->getManager();
             $examQuestion = $this->getDoctrine()
                 ->getRepository('EntityBundle:ExamQuestion')
                 ->findOneById($idExamQuestion);
-        
+            $examQuestion->setRevision($revision);
+            if ($answer) {
             $examQuestion->setSolved(true);
             $examQuestion->setAnswer($answer);
-
+            }
             $em->persist($examQuestion);
             $em->flush();
         
-        }
+        
         
         
         return new \Symfony\Component\HttpFoundation\Response(json_encode($examQuestion));
@@ -387,22 +429,35 @@ class ExamController extends Controller
         
     }
     
-    public function areaAction()
+    public function areaAction($idTypeExam, $idType)
     {
-        $types = $this->getDoctrine()
+        $type = $this->getDoctrine()
             ->getRepository('EntityBundle:ExamType')
-            ->findAll();
+            ->findOneById($idTypeExam);
         $proceses = $this->getDoctrine()
             ->getRepository('EntityBundle:ProccessGroup')
-            ->findAll();
+            ->findBy(array('examType' => $type));
         $areas = $this->getDoctrine()
             ->getRepository('EntityBundle:KnowledgeArea')
-            ->findAll();
+            ->findBy(array('examType' => $type));
+        $groups = null;
+        $groupName = '';
+        if($idType == 1)
+        {
+            $groups = $proceses;
+            $groupName = $type->getGroupName();
+        }
+        else
+        {
+            $groups = $areas;
+            $groupName = $type->getAreaName();
+        }
         return $this->render('MainBundle:Forms:selectArea.html.twig', 
                 array(
-                    'types' => $types,
-                    'proceses' => $proceses,
-                    'areas' => $areas,
+                    'idTypeExam' => $type->getId(),
+                    'idType' => $idType,
+                    'groups' => $groups,
+                    'groupName' => $groupName,
                 ));
     }
     
@@ -410,14 +465,7 @@ class ExamController extends Controller
     {
         $idType =$_POST['idType'];
         $idTypeExam=$_POST['idTypeExam'];
-        $idProccessGroup=$_POST['idProccessGroup'];
-        $idKnowledgeArea=$_POST['idKnowledgeArea'];
-        $idGroup=$idProccessGroup;
-        
-        if($idType == 2)
-        {
-            $idGroup = $idKnowledgeArea;
-        }
+        $idGroup=$_POST['idGroup'];
         
         return $this->generateExamAction(-1, $idTypeExam , $idType , $idGroup);
         
@@ -556,6 +604,21 @@ class ExamController extends Controller
         $exam->setUser($user);
         $exam->setPercentage(0);
         $exam->setCurrent($now);
+        if($idType == 1)
+        {
+            $exam->setGroup(true);
+            $exam->setArea(false);
+        }
+        elseif ($idType == 2)
+        {
+            $exam->setGroup(false);
+            $exam->setArea(true);
+        }
+        else
+        {
+            $exam->setGroup(false);
+            $exam->setArea(false);
+        }
 
 
         $em->persist($exam);
@@ -625,7 +688,24 @@ class ExamController extends Controller
     {
         $now = new \DateTime();
         $result = $this->rasndomizeArray($questions);
-        for ($x = 0; $x < $examType->getTotalQuestions(); $x++)
+        $questionsNumber =0;
+        $groupQ = $exam->getGroup();
+        $areaQ = $exam->getArea();
+        if($groupQ)
+        {
+            $questionsNumber = $examType->getGroupQuestions();
+            
+        }
+        elseif($areaQ)
+        {
+            $questionsNumber = $examType->getAreaQuestions();
+        }
+        else 
+        {
+            $questionsNumber = $examType->getTotalQuestions();
+        }
+        
+        for ($x = 0; $x < $questionsNumber; $x++)
             {
 
                 $examQuestion = new ExamQuestion();

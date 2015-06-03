@@ -46,7 +46,7 @@
             </button>
             <!-- Logo -->
             <a class="navbar-brand" href="#">
-                <img alt="PMP" src="{{ asset('bundles/applicationsonatauser/logo654.jpg') }}">
+                SIMULADOR
             </a>
           </div>
 
@@ -58,7 +58,7 @@
             <ul class="nav navbar-nav navbar-right">
              
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuario <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ app.user.username }} <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="{{path ('fos_user_security_logout')}}"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Log-out</a></li>
                 </ul>

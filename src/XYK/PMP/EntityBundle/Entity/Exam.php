@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Exam
 {
     /**
-     * @var integer
+     * @var bigint
      */
     private $id;
 
@@ -18,6 +18,16 @@ class Exam
      * @var boolean
      */
     private $finished;
+    
+     /**
+     * @var boolean
+     */
+    private $area;
+    
+     /**
+     * @var boolean
+     */
+    private $group;
     
     /**
      * @var float
@@ -43,7 +53,7 @@ class Exam
     /**
      * Get id
      *
-     * @return integer 
+     * @return bigint 
      */
     public function getId()
     {
@@ -71,6 +81,52 @@ class Exam
     public function getFinished()
     {
         return $this->finished;
+    }
+    
+    /**
+     * Set area
+     *
+     * @param boolean $area
+     * @return Exam
+     */
+    public function setArea($area)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return boolean 
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+    
+     /**
+     * Set group
+     *
+     * @param boolean $group
+     * @return Exam
+     */
+    public function setGroup($group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
+
+    /**
+     * Get group
+     *
+     * @return boolean 
+     */
+    public function getGroup()
+    {
+        return $this->group;
     }
     
     /**
