@@ -573,6 +573,8 @@ class ExamController extends Controller
                     'charts' => $charts,
                     'charts2' => $charts2,
                     'questions' => $questions2,
+                    'GroupName' => $exam->getExamType()->getGroupName(), 
+                    'AreaName' => $exam->getExamType()->getAreaName()
                 ));
         
     }
@@ -749,7 +751,7 @@ class ExamController extends Controller
         $graphics = array();
         $proccess = $this->getDoctrine()
             ->getRepository('EntityBundle:ProccessGroup')
-            ->findAll(); 
+            ->findBy(array('examType' => $exam->getExamType())); 
         $count = 1;
         foreach($proccess as $proc)
         {
@@ -766,7 +768,7 @@ class ExamController extends Controller
         $graphics = array();
         $areas = $this->getDoctrine()
             ->getRepository('EntityBundle:KnowledgeArea')
-            ->findAll(); 
+            ->findBy(array('examType' => $exam->getExamType())); 
         $count = 1;
         foreach($areas as $area)
         {
