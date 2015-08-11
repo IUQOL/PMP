@@ -5,7 +5,7 @@ parameters:
     database_port: 5432
     database_name: pmp_trainner
     database_user: postgres
-    database_password: imexhs2013
+    database_password: ccorrea2015
     mailer_transport: gmail
     mailer_host: null
     mailer_user: luis.torres@imexhs.com
