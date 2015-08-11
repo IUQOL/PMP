@@ -174,7 +174,8 @@ class ExamController extends Controller
             
         }
         
-       
+        $hasImage = empty($question->getImageName());
+        $imageName = $question->getImageName().'.jpg';
         
         
         return $this->render('MainBundle:Forms:question.html.twig', 
@@ -200,7 +201,8 @@ class ExamController extends Controller
                     'Timer' => $timer,
                     'Date'  => $date,
                     'Time'  => $time,
-                   
+                    'Image' => $hasImage,
+                    'ImageName' =>$imageName,
                     'ExamQuestion' => $examQuestion,
                     'QuestionId' => $question->getId(),
                 ));

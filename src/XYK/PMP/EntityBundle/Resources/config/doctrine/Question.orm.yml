@@ -27,6 +27,12 @@ XYK\PMP\EntityBundle\Entity\Question:
             type: datetime
             nullable: false
             comment: ''
+        imageName: 
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            column: image_name
     manyToOne:
         examType:
             targetEntity: ExamType

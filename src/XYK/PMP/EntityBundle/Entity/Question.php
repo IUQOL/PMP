@@ -30,6 +30,11 @@ class Question
     private $current;
 
     /**
+     * @var string
+     */
+    private $imageName;
+    
+    /**
      * @var \XYK\PMP\EntityBundle\Entity\ExamType
      */
     private $examType;
@@ -136,6 +141,29 @@ class Question
     public function getCurrent()
     {
         return $this->current;
+    }
+    
+    /**
+     * Set name
+     *
+     * @param string $imageName
+     * @return Question
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * Get imageName
+     *
+     * @return string 
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
     }
 
     /**

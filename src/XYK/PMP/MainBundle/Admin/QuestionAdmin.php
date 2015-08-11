@@ -58,6 +58,7 @@ class QuestionAdmin extends Admin
             ->add('knowledgeArea')
             ->add('title')
             ->add('explanation')
+            ->add('imageName')
             ->add('answers', 'sonata_type_collection', array(
                         'required' => false,
                         'by_reference' => false
@@ -85,6 +86,7 @@ class QuestionAdmin extends Admin
             ->add('knowledgeArea')
             ->add('title')
             ->add('explanation')
+            ->add('imageName')
             ->add('answers')
             
         ;
