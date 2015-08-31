@@ -14,6 +14,12 @@ class Exam
      */
     private $id;
 
+    
+    /**
+     * @var bigint
+     */
+    private $timer;
+    
     /**
      * @var boolean
      */
@@ -24,7 +30,7 @@ class Exam
      */
     private $area;
     
-     /**
+    /**
      * @var boolean
      */
     private $group;
@@ -48,7 +54,8 @@ class Exam
      * @var \Application\Sonata\UserBundle\Entity\User
      */
     private $user;
-
+    
+    
 
     /**
      * Get id
@@ -58,6 +65,29 @@ class Exam
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * Set timer
+     *
+     * @param boolean $timer
+     * @return Exam
+     */
+    public function setTimer($timer)
+    {
+        $this->timer = $timer;
+
+        return $this;
+    }
+    
+    /**
+     * Get id
+     *
+     * @return bigint 
+     */
+    public function getTimer()
+    {
+        return $this->timer;
     }
 
     /**

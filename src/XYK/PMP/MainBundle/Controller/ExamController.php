@@ -27,7 +27,7 @@ class ExamController extends Controller
         
         $total =0;
         $count =0;
-        $timer = 72000;
+        
         $date =0;
          $time = false;
                     
@@ -40,6 +40,7 @@ class ExamController extends Controller
            $answered = $exam->getFinished();
            $showExam = true; 
            
+           $timer = $exam->getTimer();
            
            $previous = $next = true;
            if($exam->getGroup())
@@ -175,7 +176,7 @@ class ExamController extends Controller
         }
         
         $hasImage = empty($question->getImageName());
-        $imageName = $question->getImageName().'.jpg';
+        $imageName = $question->getImageName().'.JPG';
         
         
         return $this->render('MainBundle:Forms:question.html.twig', 
@@ -205,6 +206,7 @@ class ExamController extends Controller
                     'ImageName' =>$imageName,
                     'ExamQuestion' => $examQuestion,
                     'QuestionId' => $question->getId(),
+                    'Revision' => $examQuestion->getRevision(),
                 ));
     }
     
@@ -220,7 +222,7 @@ class ExamController extends Controller
     public function generateExamAction($idExam = -1, $idExamType =1, $idType = -1, $idGroup = -1)
     {
         $exam = null;
-        $timer = 72000;
+        
         if($idExam == -1)
         {
             $exam = $this->createExam($idExamType, $idType, $idGroup);
@@ -231,6 +233,7 @@ class ExamController extends Controller
             ->getRepository('EntityBundle:Exam')
             ->findOneById($idExam); 
         }
+        $timer = $exam->getTimer();
         
         $questions = $this->getDoctrine()
             ->getRepository('EntityBundle:ExamQuestion')
@@ -612,16 +615,19 @@ class ExamController extends Controller
         {
             $exam->setGroup(true);
             $exam->setArea(false);
+            $exam->setTimer(75000);
         }
         elseif ($idType == 2)
         {
             $exam->setGroup(false);
             $exam->setArea(true);
+            $exam->setTimer(75000);
         }
         else
         {
             $exam->setGroup(false);
             $exam->setArea(false);
+            $exam->setTimer(72000);
         }
 
 

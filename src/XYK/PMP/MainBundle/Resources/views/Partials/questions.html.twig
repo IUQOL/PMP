@@ -13,7 +13,11 @@
                        <span class="label label-danger">{{question.order}}</span>   
                     {%endif%}    
                 {%else %}
-                    {%if question.revision%}<span class="label label-warning">[R]</span>    {%endif%}<span class="label label-primary">{{question.order}}</span>  
+                    {%if question.revision%}
+                        <span class="label label-warning">&#10095; {{question.order}}</span>    
+                    {%else%}
+                        <span class="label label-primary">{{question.order}}</span> 
+                    {%endif%} 
                 {%endif%}
             
                  
