@@ -11,6 +11,9 @@ XYK\PMP\EntityBundle\Entity\Exam:
             generator:
                 strategy: SEQUENCE
     fields:
+        timer:
+            type: bigint
+            nullable: false
         finished:
             type: boolean
             nullable: false
