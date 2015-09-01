@@ -24,14 +24,14 @@ class ExamController extends Controller
         $exam = null;
         $answered = $showExam  = $previous =$next = false;
         $explanation = true;
-        
+        $rev = false;
         $total =0;
         $count =0;
         
         $date =0;
          $time = false;
                     
-         
+        $timer = 1;
         if($idExam != null)
         {
            $exam = $this->getDoctrine()
@@ -172,7 +172,7 @@ class ExamController extends Controller
             $examQuestionPrev = $this->getDoctrine()
             ->getRepository('EntityBundle:ExamQuestion')
             ->findOneBy(array('exam' => $exam, 'question' => $question));
-            
+            $rev = $examQuestion->getRevision();
         }
         
         $hasImage = empty($question->getImageName());
@@ -206,7 +206,7 @@ class ExamController extends Controller
                     'ImageName' =>$imageName,
                     'ExamQuestion' => $examQuestion,
                     'QuestionId' => $question->getId(),
-                    'Revision' => $examQuestion->getRevision(),
+                    'Revision' => $rev, 
                 ));
     }
     

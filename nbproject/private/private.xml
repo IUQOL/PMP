@@ -3,15 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/EntityBundle/Entity/Question.php</file>
-            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Resources/views/Master/master.html.twig</file>
-            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Resources/views/Partials/questions.html.twig</file>
-            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Controller/DefaultController.php</file>
-            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/app/config/parameters.yml</file>
-            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Admin/QuestionAdmin.php</file>
+            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/EntityBundle/Entity/Exam.php</file>
             <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Controller/ExamController.php</file>
-            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Resources/views/Forms/question.html.twig</file>
-            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Resources/views/Forms/examList.html.twig</file>
+            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/EntityBundle/Resources/config/doctrine/Exam.orm.yml</file>
         </group>
     </open-files>
 </project-private>
