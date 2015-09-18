@@ -137,6 +137,23 @@ class ExamController extends Controller
                     $option =4;
                 }
             }
+            
+            $questionsNumber =0;
+            
+            if($exam->getGroup())
+        {
+            $questionsNumber = $exam->getExamType()->getGroupQuestions();
+            
+        }
+        elseif($exam->getArea())
+        {
+            $questionsNumber = $exam->getExamType()->getAreaQuestions();
+        }
+        else 
+        {
+            $questionsNumber = $exam->getExamType()->getTotalQuestions();
+        }
+            
             if($examQuestion->getOrder() == 1)
             {
                 $previous = false;
@@ -145,7 +162,7 @@ class ExamController extends Controller
                 ->findOneBy(array('exam' => $exam, 'order' => $examQuestion->getOrder() + 1 ));
                 $nextId = $examQuestionNext->getQuestion()->getId();
             }
-            elseif($examQuestion->getOrder() == $exam->getExamType()->getTotalQuestions())
+            elseif($examQuestion->getOrder() == $questionsNumber)
             {
                 $next = false;
                 $examQuestionPrev = $this->getDoctrine()
