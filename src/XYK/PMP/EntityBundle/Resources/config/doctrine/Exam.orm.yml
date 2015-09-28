@@ -35,6 +35,12 @@ XYK\PMP\EntityBundle\Entity\Exam:
             nullable: false
             comment: ''
             column: area_exam
+        name:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
         current:
             type: datetime
             nullable: false

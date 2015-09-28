@@ -6,8 +6,8 @@
             {% for exam in examns %}
                 <a href="{{ path('exam', {'idExam': exam.id}) }}" class="list-group-item">
               <span class="label  {%if exam.finished%}label-success {%else%} label-primary {%endif%} ">{{ loop.index }}</span> {{exam.current | date ('d-m-Y')}} -  {{exam.examType.name}}  
-                {%if exam.group%} - {{exam.examType.groupName}}
-                {%elseif exam.area%} - {{exam.examType.areaName}} 
+              {%if exam.group%} <br> {{exam.examType.groupName}} - {{exam.name}}
+                {%elseif exam.area%}  <br> {{exam.examType.areaName}} - {{exam.name}}
                 {%endif%}
                 <span class="badge">{{exam.percentage}}%</span>  </a>
             {% endfor %}

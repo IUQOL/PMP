@@ -404,7 +404,24 @@ class ExamController extends Controller
                     $correct++;
                 }
             }
-            $percentage = ($correct * 100)/ $exam->getExamType()->getTotalQuestions();
+            $questionsNumber =0;
+            $groupQ = $exam->getGroup();
+            $areaQ = $exam->getArea();
+            if($groupQ)
+            {
+                $questionsNumber = $exam->getExamType()->getGroupQuestions();
+
+            }
+            elseif($areaQ)
+            {
+                $questionsNumber = $exam->getExamType()->getAreaQuestions();
+            }
+            else 
+            {
+                $questionsNumber = $exam->getExamType()->getTotalQuestions();
+            } 
+            
+            $percentage = ($correct * 100)/ $questionsNumber;
             
             $em = $this->getDoctrine()->getManager();
             $exam->setFinished(true);
@@ -424,7 +441,7 @@ class ExamController extends Controller
         
         $examns = $this->getDoctrine()
             ->getRepository('EntityBundle:Exam')
-            ->findBy(array('user' => $user), array('current' => 'ASC'));
+            ->findBy(array('user' => $user, 'finished' => true), array('current' => 'ASC'));
         
         return $this->render('MainBundle:Forms:examList.html.twig', 
                 array(
@@ -458,10 +475,12 @@ class ExamController extends Controller
             ->findOneById($idTypeExam);
         $proceses = $this->getDoctrine()
             ->getRepository('EntityBundle:ProccessGroup')
-            ->findBy(array('examType' => $type));
+            ->findBy(array('examType' => $type),
+                     array('id' => 'ASC'));
         $areas = $this->getDoctrine()
             ->getRepository('EntityBundle:KnowledgeArea')
-            ->findBy(array('examType' => $type));
+            ->findBy(array('examType' => $type),
+                     array('id' => 'ASC'));
         $groups = null;
         $groupName = '';
         if($idType == 1)
@@ -583,6 +602,7 @@ class ExamController extends Controller
            // array('Correctas', $correct),
            // array('Incorrectas', $incorrect),
            'id' => $question->getQuestion()->getId(),
+           'order' => $question->getOrder(),
            'grupo' => $question->getQuestion()->getProccessGroup()->getName(),
            'area'=> $question->getQuestion()->getKnowledgeArea()->getName(),
            'correct' => $correct,
@@ -669,6 +689,7 @@ class ExamController extends Controller
                 $questions = $this->getDoctrine()
                 ->getRepository('EntityBundle:Question')
                 ->findBy(array('proccessGroup' => $proccess));
+                $exam->setName($proccess->getName());
                 $this->createExamQuestions($examType, $questions, $em, $exam);
 
             }
@@ -681,6 +702,7 @@ class ExamController extends Controller
                 $questions = $this->getDoctrine()
                 ->getRepository('EntityBundle:Question')
                 ->findBy(array('knowledgeArea' => $knowledge));
+                $exam->setName($knowledge->getName());
                 $this->createExamQuestions($examType, $questions, $em, $exam);
 
             }

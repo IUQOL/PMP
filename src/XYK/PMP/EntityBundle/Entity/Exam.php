@@ -15,6 +15,8 @@ class Exam
     private $id;
 
     
+    
+    
     /**
      * @var bigint
      */
@@ -34,6 +36,12 @@ class Exam
      * @var boolean
      */
     private $group;
+    
+    /**
+     *
+     * @var string
+     */
+    private $name;
     
     /**
      * @var float
@@ -157,6 +165,29 @@ class Exam
     public function getGroup()
     {
         return $this->group;
+    }
+    
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Exam
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
     
     /**
