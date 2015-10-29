@@ -6,7 +6,17 @@
   </div>
   <div class="panel-body">
     <form action="{{ path("searchQuestion") }}" method="POST" target="_self" id="SearchQuestion">
+        
+        <div class="form-group">
+            <label for="idTypeExam">Tipo de Examen</label>
+            <select class="form-control" id="idTypeExam" name="idTypeExam" required autofocus >
+                {%for typeExam in types%}
+                    <option value="{{typeExam.id}}">{{typeExam.name}}</option>
+                {%endfor%}
+            </select>   
+        </div>
         <div class="input-group">
+           
             <input type="text" class="form-control" placeholder="Número Pregunta" id="idQuestion" name="idQuestion">
             <span class="input-group-btn">
               <button class="btn btn-success" type="submit">Ver</button>

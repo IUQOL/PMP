@@ -58,6 +58,18 @@ XYK\PMP\EntityBundle\Entity\ExamType:
             fixed: false
             comment: ''
             column: area_name
+        examMinutes:
+            type: integer
+            nullable: false
+            column: exam_minutes
+        groupMinutes:
+            type: integer
+            nullable: false
+            column: group_minutes
+        subGroup:
+            type: boolean
+            nullable: true
+            column: sub_group
             
             
     

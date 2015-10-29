@@ -89,6 +89,9 @@ class Builder extends ContainerAware
                 
                 foreach($typeExam as $type)
                 {
+                    if($type->getSubGroup())
+                    {
+                    
                     $exam->addChild('Examen '.$type->getGroupName(), 
                                 array('route' => 'searchArea',
                                       'routeParameters' => array('idType' => 1, 'idTypeExam' => $type->getId()),
@@ -98,6 +101,7 @@ class Builder extends ContainerAware
                                 array('route' => 'searchArea',
                                       'routeParameters' => array('idType' => 2, 'idTypeExam' => $type->getId()),
                                     ));
+                    }
                 }
                 
             

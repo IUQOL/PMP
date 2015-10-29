@@ -53,6 +53,27 @@ class ExamType
      * @var \DateTime
      */
     private $current;
+    
+    /**
+     *
+     * @var integer 
+     */
+    private $examMinutes;
+    
+    /**
+     *
+     * @var integer 
+     */
+    private $groupMinutes;
+    
+    
+    /**
+     *
+     * @var boolean 
+     */
+    private $subGroup;
+    
+    
 
 
     /**
@@ -248,6 +269,75 @@ class ExamType
     public function getCurrent()
     {
         return $this->current;
+    }
+    
+    /**
+     * Set examMinutes
+     *
+     * @param integer $examMinutes
+     * @return ExamType
+     */
+    public function setExamMinutes($examMinutes)
+    {
+        $this->examMinutes = $examMinutes;
+
+        return $this;
+    }
+
+    /**
+     * Get examMinutes
+     *
+     * @return integer 
+     */
+    public function getExamMinutes()
+    {
+        return $this->examMinutes;
+    }
+    
+    /**
+     * Set groupMinutes
+     *
+     * @param integer $groupMinutes
+     * @return ExamType
+     */
+    public function setGroupMinutes($groupMinutes)
+    {
+        $this->groupMinutes = $groupMinutes;
+
+        return $this;
+    }
+
+    /**
+     * Get groupMinutes
+     *
+     * @return integer 
+     */
+    public function getGroupMinutes()
+    {
+        return $this->groupMinutes;
+    }
+    
+    /**
+     * Set subGroup
+     *
+     * @param boolean $subGroup
+     * @return Exam
+     */
+    public function setSubGroup($subGroup)
+    {
+        $this->subGroup = $subGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get subGroup
+     *
+     * @return boolean 
+     */
+    public function getSubGroup()
+    {
+        return $this->subGroup;
     }
     
     /**

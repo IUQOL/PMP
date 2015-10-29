@@ -35,6 +35,12 @@ class Question
     private $imageName;
     
     /**
+     *
+     * @var bigint
+     */
+    private $number;
+    
+    /**
      * @var \XYK\PMP\EntityBundle\Entity\ExamType
      */
     private $examType;
@@ -166,6 +172,29 @@ class Question
         return $this->imageName;
     }
 
+    /**
+     * Set number
+     *
+     * @param bigint $number
+     * @return Question
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return bigint 
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+    
     /**
      * Set examType
      *

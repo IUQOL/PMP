@@ -33,6 +33,9 @@ XYK\PMP\EntityBundle\Entity\Question:
             length: 50
             fixed: false
             column: image_name
+        number:
+            type: bigint
+            nullable: false
     manyToOne:
         examType:
             targetEntity: ExamType

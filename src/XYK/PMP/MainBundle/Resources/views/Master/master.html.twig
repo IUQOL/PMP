@@ -17,7 +17,7 @@
     <link href="{{ asset('bundles/main/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{{ asset('bundles/main/bootstrap/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/main/bootstrap/css/custom.css') }}" rel="stylesheet"> 
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -61,7 +61,12 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ app.user.username }} <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="{{path ('fos_user_security_logout')}}"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Log-out</a></li>
+                  <li><a href="{{path ('fos_user_security_logout')}}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Cerrar sesión</a></li>
+                  <li><a href="{{ path('sonata_user_profile_edit') }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Perfil</a></li>
+                  <li><a href="{{ path('sonata_user_profile_edit_authentication') }}"><span class="glyphicon-pencil" aria-hidden="true"></span>Datos de ingreso</a></li>
+                  <li><a href="{{ path('sonata_user_change_password') }}"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>Cambiar contraseña</a></li>
+                 
+        
                 </ul>
               </li>
              

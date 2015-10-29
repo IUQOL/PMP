@@ -27,7 +27,8 @@ class QuestionAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title')
+            ->addIdentifier('number')
+            ->add('title')
             ->add('explanation')
             ->add('examType')  
             ->add('proccessGroup')
@@ -53,9 +54,11 @@ class QuestionAdmin extends Admin
         
         
         $formMapper
+                
             ->add('examType')    
             ->add('proccessGroup')
             ->add('knowledgeArea')
+            ->add('number')
             ->add('title')
             ->add('explanation')
             ->add('imageName')
@@ -84,6 +87,7 @@ class QuestionAdmin extends Admin
             ->add('examType')    
             ->add('proccessGroup')
             ->add('knowledgeArea')
+            ->add('number')
             ->add('title')
             ->add('explanation')
             ->add('imageName')

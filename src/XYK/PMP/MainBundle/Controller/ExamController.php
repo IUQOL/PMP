@@ -193,7 +193,9 @@ class ExamController extends Controller
         }
         
         $hasImage = empty($question->getImageName());
-        $imageName = $question->getImageName().'.JPG';
+        $examtype = $question->getExamType()->getId();
+        
+        $imageName = $examtype.'/'.$question->getImageName().'.JPG';
         
         
         return $this->render('MainBundle:Forms:question.html.twig', 
@@ -222,7 +224,7 @@ class ExamController extends Controller
                     'Image' => $hasImage,
                     'ImageName' =>$imageName,
                     'ExamQuestion' => $examQuestion,
-                    'QuestionId' => $question->getId(),
+                    'QuestionId' => $question->getNumber(),
                     'Revision' => $rev, 
                 ));
     }
@@ -452,15 +454,45 @@ class ExamController extends Controller
     
     public function searchAction()
     {
-        return $this->render('MainBundle:Forms:selectQuestion.html.twig');
+        $types = $this->getDoctrine()
+            ->getRepository('EntityBundle:ExamType')
+            ->findAll();
+       
+       
+        return $this->render('MainBundle:Forms:selectQuestion.html.twig', 
+                array(
+                    'types' => $types,
+                    'errort' => false,
+                    
+                ));
     }
     
     public function searchQuestionAction()
     {
         $idQuestion=$_POST['idQuestion'];
+       $idTypeExam=$_POST['idTypeExam'];
+        
+        $user = $this->get('security.context')->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+        
+        $examType = $this->getDoctrine()
+            ->getRepository('EntityBundle:ExamType')
+            ->findOneById($idTypeExam);
+        
+       
+                     
+        
+        
+        
         if (is_numeric ( $idQuestion ))
         {
-            return $this->questionAction(intval($idQuestion));
+             $question = $this->getDoctrine()
+                ->getRepository('EntityBundle:Question')
+                ->findOneBy(array('examType' => $examType, 'number' => $idQuestion));
+             
+            return $this->questionAction(intval($question->getId()));
         }
         else {
             return $this->questionAction(-1);
@@ -643,6 +675,10 @@ class ExamController extends Controller
         $exam = new Exam();
         $now = new \DateTime();
 
+        $examTimer = round(($examType->getExamMinutes()*60000)/ $examType->getTotalQuestions(),0, PHP_ROUND_HALF_UP);
+        $groupTimer = $examType->getGroupMinutes()*60000;
+        
+        
         $exam->setExamType($examType);
         $exam->setFinished(false);
         $exam->setUser($user);
@@ -652,19 +688,19 @@ class ExamController extends Controller
         {
             $exam->setGroup(true);
             $exam->setArea(false);
-            $exam->setTimer(75000);
+            $exam->setTimer(round($groupTimer/$examType->getGroupQuestions(),0, PHP_ROUND_HALF_UP));
         }
         elseif ($idType == 2)
         {
             $exam->setGroup(false);
             $exam->setArea(true);
-            $exam->setTimer(75000);
+            $exam->setTimer(round($groupTimer/$examType->getAreaQuestions(),0, PHP_ROUND_HALF_UP));
         }
         else
         {
             $exam->setGroup(false);
             $exam->setArea(false);
-            $exam->setTimer(72000);
+            $exam->setTimer($examTimer);
         }
 
 
@@ -688,7 +724,7 @@ class ExamController extends Controller
 
                 $questions = $this->getDoctrine()
                 ->getRepository('EntityBundle:Question')
-                ->findBy(array('proccessGroup' => $proccess));
+                ->findBy(array('proccessGroup' => $proccess, 'examType' => $examType ));
                 $exam->setName($proccess->getName());
                 $this->createExamQuestions($examType, $questions, $em, $exam);
 
@@ -701,7 +737,7 @@ class ExamController extends Controller
 
                 $questions = $this->getDoctrine()
                 ->getRepository('EntityBundle:Question')
-                ->findBy(array('knowledgeArea' => $knowledge));
+                ->findBy(array('knowledgeArea' => $knowledge, 'examType' => $examType ));
                 $exam->setName($knowledge->getName());
                 $this->createExamQuestions($examType, $questions, $em, $exam);
 
@@ -709,25 +745,36 @@ class ExamController extends Controller
         }
         else
         {
-            $proccess = $this->getDoctrine()
-            ->getRepository('EntityBundle:ProccessGroup')
-            ->findAll();
+            if($examType->getSubGroup())
+            {
+                $proccess = $this->getDoctrine()
+                ->getRepository('EntityBundle:ProccessGroup')
+                ->findAll();
 
-            foreach ($proccess as $proc)
+                foreach ($proccess as $proc)
+                {
+                    $questions = $this->getDoctrine()
+                    ->getRepository('EntityBundle:Question')
+                    ->findBy(array('proccessGroup' => $proc));
+
+                    $q2 = $this->rasndomizeArray($questions);
+                    $numQuest = $this->totalQuestions($examType, $proc);
+                    for ($x = 0; $x < $numQuest; $x++)
+                    {
+                        $result[] = $q2[$x];
+                    }
+
+                }
+                $this->createExamQuestions($examType, $result, $em, $exam);
+            }
+            else
             {
                 $questions = $this->getDoctrine()
                 ->getRepository('EntityBundle:Question')
-                ->findBy(array('proccessGroup' => $proc));
-
-                $q2 = $this->rasndomizeArray($questions);
-                $numQuest = $this->totalQuestions($examType, $proc);
-                for ($x = 0; $x < $numQuest; $x++)
-                {
-                    $result[] = $q2[$x];
-                }
-
+                ->findBy(array('examType' => $examType ));
+                $this->createExamQuestions($examType, $questions, $em, $exam);
+            
             }
-            $this->createExamQuestions($examType, $result, $em, $exam);
         }
         return $exam;
     }

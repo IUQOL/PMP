@@ -15,8 +15,8 @@ file that was distributed with this source code.
    <div class="container-fluid" style="padding:0;">
       <div class="post-head">
       <div class="starter-template">
-        <h1>{{ "profile_manager_header" | trans({}, 'SonataUserBundle')}}</h1>
-        <p class="lead">{{ "profile_manager_header_content" | trans({}, 'SonataUserBundle')}}</p>
+        <h1>PERFIL DE USUARIO</h1>
+        <p class="lead">Administrar datos del usuario</p>
       </div>
       </div>
     </div><!-- /.container -->
@@ -26,47 +26,33 @@ file that was distributed with this source code.
     <div class="container marketing">
     <!-- Three columns of text below the carousel -->
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-4">
             <center>
                 <div class="circle"><i class="glyphicon glyphicon-user"></i></div>
-                <h4>{{ "link_edit_profile" | trans({}, 'SonataUserBundle')}}</h4>
+                <h4>Perfil de Usuario</h4>
                 <p><a class="btn btn-default" href="{{ path('sonata_user_profile_edit') }}" role="button">{{ 'breadcrumb.link_user_show'|trans({}, 'SonataUserBundle') }} &raquo;</a></p>
             </center>
           </div><!-- /.col-lg-3 -->
-          <div class="col-lg-3">
+          <div class="col-lg-4">
             <center>
                 <div class="circle"><i class="glyphicon glyphicon-pencil"></i></div>
-                <h4>{{ "title_user_edit_authentication" | trans({}, 'SonataUserBundle')}}</h4>
+                <h4>Autenticación</h4>
                 <p><a class="btn btn-default" href="{{ path('sonata_user_profile_edit_authentication') }}" role="button">{{ 'breadcrumb.link_user_show'|trans({}, 'SonataUserBundle') }} &raquo;</a></p>
             </center>
           </div><!-- /.col-lg-3 -->
-          <div class="col-lg-3">
+          <div class="col-lg-4">
             <center>
                 <div class="circle"><i class="glyphicon glyphicon-lock"></i></div>
-                <h4>{{ "sonata_change_password_link" | trans({}, 'SonataUserBundle')}}</h4>
+                <h4>Contraseña</h4>
                 <p><a class="btn btn-default" href="{{ path('sonata_user_change_password') }}" role="button">{{ 'breadcrumb.link_user_show'|trans({}, 'SonataUserBundle') }} &raquo;</a></p>
             </center>
           </div><!-- /.col-lg-3 -->
-          <div class="col-lg-3">
-            <center>
-                <div class="circle"><i class="glyphicon glyphicon-qrcode"></i></div>
-                <h4>Authenticator</h4>
-                <p><a class="btn btn-default" href="{{ path('steeps_info') }}" role="button">{{ 'breadcrumb.link_user_show'|trans({}, 'SonataUserBundle') }} &raquo;</a></p>
-            </center>
-          </div><!-- /.col-lg-3 -->
+         
         </div><!-- /.row -->
 
-
+    </div>
      
-        
-    <!-- Separador -->
-    <div class="col-md-12" style="margin-top:40px"><hr></div>
-      <!-- FOOTER -->
-      <footer>
-        <p class="pull-right"><a href="#"><span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span> Top</a></p>
-        <p>&copy; 2015 Hiruko Software for Radiology</p>
-      </footer>
-
-    </div><!-- /.container -->
+     <div class="col-md-12"><hr></div>   
+ 
 
 {% endblock %}
