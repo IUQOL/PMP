@@ -1,52 +1,107 @@
-{% extends base_template %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block sonata_nav %}
-{% endblock sonata_nav %}
+    <head>
 
-{% block logo %}
-    
-{% endblock logo %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Simuladores.co</title>
 
-{% block sonata_left_side %}
-{% endblock sonata_left_side %}
+        <script>
+              var url_code = {{ asset('bundles/main/login/') }};
+                window.SONATA_CONFIG = {
+                    CONFIRM_EXIT: true,
+                    USE_SELECT2: true,
+                    USE_ICHECK: true                };
+                window.SONATA_TRANSLATIONS = {
+                    CONFIRM_EXIT:  'Tienes\x20cambios\x20sin\x20guardar.'
+               };
+        </script>
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="{{ asset('bundles/main/login/bootstrap/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('bundles/main/login/font-awesome/css/font-awesome.min.css')}}">
+		<link rel="stylesheet" href="{{ asset('bundles/main/login/css/form-elements.css')}}">
+        <link rel="stylesheet" href="{{ asset('bundles/main/login/css/style.css')}}">
 
-{% block body_attributes %}class="sonata-bc bg-dark-gray"{% endblock %}
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-{% block sonata_wrapper %}
-    <div class="form-box" id="login-box">
-        <div class="header bg-black"><center>SIMULADOR</center></div>
-        {% block sonata_user_login_form %}
-            <form action="{{ path("sonata_user_admin_security_check") }}" method="post" role="form">
-                <div class="body bg-gray">
-                    {% block sonata_user_login_error %}
-                        {% if error %}
-                            <div class="alert alert-danger alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
-                        {% endif %}
-                    {% endblock %}
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="{{ asset('bundles/main/login/ico/favicon.png')}}">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('bundles/main/login/ico/apple-touch-icon-144-precomposed.png')}}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('bundles/main/login/ico/apple-touch-icon-114-precomposed.png')}}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('bundles/main/login/ico/apple-touch-icon-72-precomposed.png')}}">
+        <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/main/login/ico/apple-touch-icon-57-precomposed.png')}}">
 
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+    </head>
 
-                    <div class="form-group control-group">
-                        <input type="text" class="form-control" id="username"  name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'security.login.username'|trans({}, 'SonataUserBundle') }}"/>
+    <body>
+
+        <!-- Top content -->
+        <div class="top-content">
+        	
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                            <h1><strong>Simuladores</strong> Ingreso</h1>
+                            
+                        </div>
                     </div>
-
-
-                    <div class="form-group control-group">
-                        <input type="password" class="form-control" id="password" name="_password" required="required" placeholder="{{ 'security.login.password'|trans({}, 'SonataUserBundle') }}"/>
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        	<div class="form-top">
+                        		<div class="form-top-left">
+                                            <img src="{{ asset('bundles/main/login/img/logo_strgr_top.png')}}" /> 
+                        			
+                            		
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-lock"></i>
+                        		</div>
+                            </div>
+                            <div class="form-bottom">
+			                    <form action="{{ path("sonata_user_admin_security_check") }}" method="post" role="form" class="login-form">
+			                    	{% if error %}
+                                                    <div class="alert alert-danger alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+                                                {% endif %}
+                                                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                                                <div class="form-group">
+			                    		<label class="sr-only" for="form-username">Usuario</label>
+			                        	<input type="text" id="username"  name="_username" value="{{ last_username }}" required="required" placeholder="Usuario..." class="form-username form-control" >
+			                        </div>
+			                        <div class="form-group">
+			                        	<label class="sr-only" for="form-password">Contraseña</label>
+			                        	<input type="password" id="password" name="_password" required="required" placeholder="Contraseña..." class="form-password form-control" >
+			                        </div>
+			                        <button type="submit" id="_submit" name="_submit" class="btn">Ingresar</button>
+                                             </form>
+		                    </div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
-                        {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
-                    </div>
-
-                </div>
-
-                <div class="footer">
-                    <button type="submit" id="_submit" name="_submit" class="btn bg-blue btn-block">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
                     
                 </div>
-            </form>
-        {% endblock %}
-    </div>
-{% endblock sonata_wrapper %}
+            </div>
+            
+        </div>
+
+
+        <!-- Javascript -->
+        <script src="{{ asset('bundles/main/login/js/jquery-1.11.1.min.js')}}"></script>
+        <script src="{{ asset('bundles/main/login/bootstrap/js/bootstrap.min.js')}}"></script>
+        <script src="{{ asset('bundles/main/login/js/jquery.backstretch.min.js')}}"></script>
+        <script src="{{ asset('bundles/main/login/js/scripts.js')}}"></script>
+        
+        <!--[if lt IE 10]>
+            <script src="assets/js/placeholder.js"></script>
+        <![endif]-->
+
+    </body>
+
+</html>

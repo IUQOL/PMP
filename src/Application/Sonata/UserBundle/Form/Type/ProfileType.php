@@ -6,7 +6,7 @@
  * Time: 09:45 AM
  */
 
-namespace Hiruko\SecurityBundle\Form\Type;
+namespace Application\Sonata\UserBundle\Form\Type;
 
 
 

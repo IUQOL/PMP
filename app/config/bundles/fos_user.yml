@@ -1,6 +1,18 @@
 ## YAML Template.
 ---
 fos_user:
+  #  from_email:
+  #      address:        noreply@example.com
+  #      sender_name:    Demo App
+    registration:
+        
+        confirmation:
+            enabled: true
+ #   resetting:
+ #       email:
+ #           from_email:
+ #               address:        resetting@example.com
+ #               sender_name:    Demo Resetting
     db_driver:      orm # can be orm or odm
     firewall_name:  main
     user_class:     Application\Sonata\UserBundle\Entity\User

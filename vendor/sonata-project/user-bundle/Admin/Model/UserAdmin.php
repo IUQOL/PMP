@@ -175,7 +175,7 @@ class UserAdmin extends Admin
    
         ;
 
-        if ($this->getSubject() && !$this->getSubject()->hasRole('ROLE_SUPER_ADMIN')) {
+     //   if ($this->getSubject() && !$this->getSubject()->hasRole('ROLE_SUPER_ADMIN')) {
             $formMapper
                 ->with('Groups')
 
@@ -190,7 +190,7 @@ class UserAdmin extends Admin
                 ->add('credentialsExpired', null, array('required' => false))
                 ->end()
             ;
-        }
+       // }
 
     }
 
