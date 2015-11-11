@@ -1,0 +1,38 @@
+{% extends 'MainBundle:Master:master.html.twig' %}
+{% block content %}
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  {% for usuario in users %}
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading{{ loop.index }}">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}">
+          {{ usuario.nombre}} - ({{usuario.username}}) - {{usuario.examenes}}
+        </a>
+      </h4>
+    </div>
+    <div id="collapse{{ loop.index }}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{ loop.index }}">
+      <div class="panel-body">
+        <div class="list-group ">
+            {% for exam in usuario.examns %}
+                <a href="{{ path('exam', {'idExam': exam.id}) }}" class="list-group-item">
+              <span class="label  {%if exam.finished%}label-success {%else%} label-primary {%endif%} ">{{ loop.index }}</span> {{exam.current | date ('d-m-Y')}} -  {{exam.examType.name}}  
+              {%if exam.group%} <br> {{exam.examType.groupName}} - {{exam.name}}
+                {%elseif exam.area%}  <br> {{exam.examType.areaName}} - {{exam.name}}
+                {%endif%}
+                <span class="badge">{{exam.percentage}}%</span>  </a>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  
+
+</div>
+{% endblock content%}
+
+{% block breadcrumblink %} Examenes Usuarios.{% endblock breadcrumblink %}
+
+
+        

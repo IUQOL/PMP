@@ -35,6 +35,12 @@ class Builder extends ContainerAware
                 'dropdown' => true,
                 'caret' => true,
                 ));
+            
+            if ($security->isGranted('ROLE_SUPER_ADMIN'))
+            {
+                $adminMenu->addChild('Listado examenes', 
+                               array('route' => 'userReport'));
+            }
 
             foreach ($admin_pool->getDashboardGroups() as $group) {
                 $display = (count($group['roles']) == 0) || $security->isGranted('ROLE_SUPER_ADMIN');

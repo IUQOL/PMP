@@ -452,6 +452,37 @@ class ExamController extends Controller
         
     }
     
+    
+    public function reportingAction()
+    {
+        $usuarios = null;
+        $users  = $this->getDoctrine()
+            ->getRepository('ApplicationSonataUserBundle:User')
+            ->findBy(array(), array('lastname'=>'asc', 'firstname' => 'asc', 'username' => 'asc'));
+        
+        foreach( $users as $user)
+        {
+        
+         $examns = $this->getDoctrine()
+            ->getRepository('EntityBundle:Exam')
+            ->findBy(array('user' => $user, 'finished' => true), array('current' => 'ASC'));
+         
+         if(!empty($examns))
+         {
+           $usuarios[] = array('nombre' => $user->getFirstname().' '.$user->getLastname(),
+                                'username' => $user->getUsername() ,
+                                'examenes' => sizeof($examns),
+                                'examns' => $examns);
+         }
+         
+        }
+        return $this->render('MainBundle:Forms:report.html.twig', 
+                array(
+                    'users' => $usuarios,
+                ));
+    }
+    
+    
     public function searchAction()
     {
         $types = $this->getDoctrine()

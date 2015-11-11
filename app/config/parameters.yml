@@ -8,7 +8,7 @@ parameters:
     database_password: imexhs2013
     mailer_transport: gmail
     mailer_host: null
-    mailer_user: luis.torres@imexhs.com
-    mailer_password: ltorres2013
+    mailer_user: ing.iuqol@gmail.com
+    mailer_password: Imexhs2015
     locale: es
     secret: 25d60ffeb85f3cc6e937869c3dedf8be

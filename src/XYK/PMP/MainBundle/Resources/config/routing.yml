@@ -22,6 +22,12 @@ history:
     path: /history
     defaults: { _controller: MainBundle:Exam:history }
     
+userReport:
+    path: /reportUsers
+    defaults: { _controller: MainBundle:Exam:reporting }
+    
+    
+    
 search:
     path: /search
     defaults: { _controller: MainBundle:Exam:search}
