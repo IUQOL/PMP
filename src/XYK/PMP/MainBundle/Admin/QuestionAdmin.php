@@ -16,6 +16,8 @@ class QuestionAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
+            ->add('examType')    
+            ->add('number')
             ->add('title')
             
         ;

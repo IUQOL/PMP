@@ -5,13 +5,18 @@
         <group>
             <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/vendor/sonata-project/user-bundle/Model/User.php</file>
             <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Resources/views/Master/master.html.twig</file>
-            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/Application/Sonata/UserBundle/Entity/User.php</file>
-            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Menu/Builder.php</file>
+            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/EntityBundle/Entity/Question.php</file>
+            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Resources/views/Forms/exam.html.twig</file>
             <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Resources/config/routing.yml</file>
             <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Resources/views/Forms/examList.html.twig</file>
-            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Controller/ExamController.php</file>
             <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/Application/Sonata/UserBundle/Resources/config/doctrine/User.orm.xml</file>
             <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Resources/views/Forms/report.html.twig</file>
+            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/Application/Sonata/UserBundle/Entity/User.php</file>
+            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/EntityBundle/Entity/Exam.php</file>
+            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Menu/Builder.php</file>
+            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Admin/QuestionAdmin.php</file>
+            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Controller/ExamController.php</file>
+            <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/src/XYK/PMP/MainBundle/Resources/views/Forms/question.html.twig</file>
             <file>file:/C:/Bitnami/wappstack-5.5.26-0/apache2/htdocs/PMP/vendor/sonata-project/user-bundle/Entity/BaseUser.php</file>
         </group>
     </open-files>

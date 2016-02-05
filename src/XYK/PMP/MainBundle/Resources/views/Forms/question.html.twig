@@ -116,11 +116,11 @@
             {% endif %}
             {% if IdExam != null%}
                 <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_questions" onclick=" SolveQuestion({{ExamQuestion.id}}); return true;"  class="btn btn-default">Preguntas</a>
-                {%if not exam.finished %}
-                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_finish"  class="btn btn-success" onclick=" FinishExam({{IdExam}},{{ExamQuestion.id}}); return true;  ">Finalizar</a>
-                {% endif %}
+               
             {% endif %}
         </div>
+        
+            
 
     </div>
     <div class="panel-footer"> 
@@ -151,6 +151,18 @@
 
     
 </div>  
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+        
+    <div class="btn-group" role="group" >
+        {% if IdExam != null%}
+            {%if not exam.finished %}
+                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_finish"  class="btn btn-success btn-lg" onclick=" FinishExam({{IdExam}},{{ExamQuestion.id}}); return true;  ">Finalizar</a>
+            {% endif %}
+        {% endif %}
+          
+    </div>
+        
+</div>
 <div id="panel_explanation" class="panel panel-info" style="display: none">
   <div class="panel-heading">
     <h3 class="panel-title">Explicación</h3>
