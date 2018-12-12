@@ -114,10 +114,7 @@
             {% if ShowExplanation%}
                 <button id="btn_explanation"  class="btn btn-info" onclick="$( '#panel_explanation' ).toggle(); return false;">Explicación</button>
             {% endif %}
-            {% if IdExam != null%}
-                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_questions" onclick=" SolveQuestion({{ExamQuestion.id}}); return true;"  class="btn btn-default">Preguntas</a>
-               
-            {% endif %}
+          
         </div>
         
             
@@ -155,9 +152,10 @@
         
     <div class="btn-group" role="group" >
         {% if IdExam != null%}
-            {%if not exam.finished %}
-                <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_finish"  class="btn btn-success btn-lg" onclick=" FinishExam({{IdExam}},{{ExamQuestion.id}}); return true;  ">Finalizar</a>
-            {% endif %}
+               <a href="{{ path('exam', {'idExam':IdExam}) }}" id="btn_questions" class="btn btn-primary btn-lg"  onclick=" SolveQuestion({{ExamQuestion.id}}); return true;"  >Preguntas</a>
+               
+           
+          
         {% endif %}
           
     </div>

@@ -68,7 +68,7 @@ class ExamController extends Controller
                }
                
                $time = true;
-               $timer = $timer * $total;
+        //       $timer = $timer * $total;
                $date = $exam->getCurrent()->getTimestamp()*1000 + $timer;
                
                
@@ -156,7 +156,12 @@ class ExamController extends Controller
             
             if($examQuestion->getOrder() == 1)
             {
-                $previous = false;
+                $previous = true;
+                //Get previous with number of questions
+                  $examQuestionPrev = $this->getDoctrine()
+                ->getRepository('EntityBundle:ExamQuestion')
+                ->findOneBy(array('exam' => $exam, 'order' => $questionsNumber));
+                $prevId = $examQuestionPrev->getQuestion()->getId();
                 $examQuestionNext = $this->getDoctrine()
                 ->getRepository('EntityBundle:ExamQuestion')
                 ->findOneBy(array('exam' => $exam, 'order' => $examQuestion->getOrder() + 1 ));
@@ -164,7 +169,12 @@ class ExamController extends Controller
             }
             elseif($examQuestion->getOrder() == $questionsNumber)
             {
-                $next = false;
+                $next = true;
+                //Prev is question 1
+                 $examQuestionNext = $this->getDoctrine()
+                ->getRepository('EntityBundle:ExamQuestion')
+                ->findOneBy(array('exam' => $exam, 'order' => 1));
+                $nextId = $examQuestionNext->getQuestion()->getId();
                 $examQuestionPrev = $this->getDoctrine()
                 ->getRepository('EntityBundle:ExamQuestion')
                 ->findOneBy(array('exam' => $exam, 'order' => $examQuestion->getOrder() - 1));
@@ -328,11 +338,20 @@ class ExamController extends Controller
            {
                $total = $exam->getExamType()->getTotalQuestions();
            }
-        
-        $date = $exam->getCurrent()->getTimestamp()*1000 + ($timer*$total);
+        if($idExam == -1)
+        {
+            $this->updateExamCurrent($exam->getId());
+        }
+        $date = $exam->getCurrent()->getTimestamp()*1000 + ($timer);
+           //     *$total);
         
         $time = $exam->getFinished();
-        
+      /*  if($idExam == -1)
+        {
+          $this->questionAction($questions[0]->getId(),$exam->getId());
+        }
+        else
+        {*/
         return $this->render('MainBundle:Forms:exam.html.twig', 
                 array(
                     'exam' => $exam,
@@ -353,6 +372,7 @@ class ExamController extends Controller
                     
                     
                 ));
+       // }
     }
             
     
@@ -683,6 +703,20 @@ class ExamController extends Controller
                 ));
         
     }
+    private function updateExamCurrent($idExam)
+    {
+         $em = $this->getDoctrine()->getManager();
+         $exam = $this->getDoctrine()
+            ->getRepository('EntityBundle:Exam')
+            ->findOneById($idExam); 
+        $now = new \DateTime();
+        $exam->setCurrent($now);
+         $em->persist($exam);
+
+        $em->flush();
+         
+    }
+    
     
     private function createExam($idExamType =1, $idType = -1, $idGroup = -1)
     {
@@ -706,7 +740,9 @@ class ExamController extends Controller
         $exam = new Exam();
         $now = new \DateTime();
 
-        $examTimer = round(($examType->getExamMinutes()*60000)/ $examType->getTotalQuestions(),0, PHP_ROUND_HALF_UP);
+        $examTimer = /*round((*/
+                $examType->getExamMinutes()*60000;
+            /*)/ $examType->getTotalQuestions(),0, PHP_ROUND_HALF_UP);*/
         $groupTimer = $examType->getGroupMinutes()*60000;
         
         
@@ -719,13 +755,15 @@ class ExamController extends Controller
         {
             $exam->setGroup(true);
             $exam->setArea(false);
-            $exam->setTimer(round($groupTimer/$examType->getGroupQuestions(),0, PHP_ROUND_HALF_UP));
+            $exam->setTimer($groupTimer);
+                    //round($groupTimer/$examType->getGroupQuestions(),0, PHP_ROUND_HALF_UP));
         }
         elseif ($idType == 2)
         {
             $exam->setGroup(false);
             $exam->setArea(true);
-            $exam->setTimer(round($groupTimer/$examType->getAreaQuestions(),0, PHP_ROUND_HALF_UP));
+            $exam->setTimer($groupTimer);
+                  //  round($groupTimer/$examType->getAreaQuestions(),0, PHP_ROUND_HALF_UP));
         }
         else
         {

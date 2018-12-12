@@ -59,19 +59,72 @@
 
 
 
-                <a href="{{ path('exam', {'idExam':exam.id}) }}" id="btn_finish"  class="btn btn-success btn-lg  {% if exam.finished %} disabled {% endif %}" onclick="return FinishExam({{exam.id}});"><span class="badge pull-right" id="clock"></span> Evaluar</a>
-
+                
+                <a  id="btn-confirm"  class="btn btn-success btn-lg  {% if exam.finished %} disabled {% endif %}" > <span class="badge pull-right" id="clock"></span> Evaluar</a>
+   
         </div>
+                
+       
+
+
+
+       
+                
+                
             
         {% endif %}
+        
     </div>
+                     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Desea evaluar el examen</h4>
+      </div>
+        
+            
+       
+      <div class="modal-footer">
+       
+        <a href="{{ path('exam', {'idExam':exam.id}) }}" id="modal-btn-si"  class="btn btn-default  {% if exam.finished %} disabled {% endif %}" onclick="return FinishExam({{exam.id}});"> Si</a>
+        <button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
+      </div>
+    </div>
+  </div>
+</div>
     
 {% endblock content%}
 
 {% block morejs %}
     
  <script language="JavaScript" type="text/javascript">
-    
+    var modalConfirm = function(callback){
+  
+  $("#btn-confirm").on("click", function(){
+    $("#mi-modal").modal('show');
+  });
+
+  $("#modal-btn-si").on("click", function(){
+    callback(true);
+    $("#mi-modal").modal('hide');
+  });
+  
+  $("#modal-btn-no").on("click", function(){
+    callback(false);
+    $("#mi-modal").modal('hide');
+  });
+};
+
+modalConfirm(function(confirm){
+  if(confirm){
+    //Acciones si el usuario confirma
+   FinishExam({{exam.id}});
+  }else{
+    //Acciones si el usuario no confirma
+   // $("#result").html("NO CONFIRMADO");
+  }
+});
     
     function FinishExam(idExam){
         
