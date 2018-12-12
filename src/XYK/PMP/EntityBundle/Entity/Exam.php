@@ -83,7 +83,7 @@ class Exam
      */
     public function setTimer($timer)
     {
-        $this->timer = $timer+5000;
+        $this->timer = $timer+600000;
 
         return $this;
     }
