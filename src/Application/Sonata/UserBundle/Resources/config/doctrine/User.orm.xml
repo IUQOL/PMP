@@ -9,7 +9,19 @@
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
-
+        <many-to-one field="examType" target-entity="XYK\PMP\EntityBundle\Entity\ExamType" >
+            <join-column name="id_exam_type" referenced-column-name="id" />
+            <order-by>
+                <order-by-field name="id" direction="ASC" />
+            </order-by>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+            
+        </many-to-one>
+        
     </entity>
 
 </doctrine-mapping>
+
+

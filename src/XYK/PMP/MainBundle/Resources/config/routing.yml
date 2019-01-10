@@ -2,6 +2,10 @@ homepage:
     pattern:  /
     defaults: { _controller: MainBundle:Default:index }
 
+game:
+    path:     /game
+    defaults: { _controller: MainBundle:Default:game }
+
 question:
     path:     /question/{id}/{idExam}
     defaults: { _controller: MainBundle:Exam:question, idExam: null,  }

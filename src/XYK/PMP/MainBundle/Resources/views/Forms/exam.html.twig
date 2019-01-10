@@ -3,48 +3,49 @@
  
     <div class="row">
         
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions1 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions2 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions3 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions4 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions5 }  %}
-        
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions6 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions7 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions8 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions9 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions10 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions11 }  %}
-        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions12 }  %}
-        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-1">
-            <div class="list-group disabled ">
-                <a href="#" class="list-group-item">
+        {% include "MainBundle:Partials:questions.html.twig" with { questions: questions }  %}
+     </div>
+     <div> <br></br> </div>
+     
+     
+     <div class="btn-group" role="group">
+                <a href="#" class="btn btn-light">
                    <span class="label label-primary">#</span>
                    Número pregunta
                 </a>
-                <a href="#" class="list-group-item">
+                <a href="#" class="btn btn-light">
                    <span class="label label-warning">&#10095; #</span> 
                    Revisión
                 </a>
-                 <a href="#" class="list-group-item">
+                 <a href="#" class="btn btn-light">
                    <span class="badge">&#10059;</span> 
                    Resuelta
                 </a>
-                
-                <a href="#" class="list-group-item">
+                <a href="#" class="btn btn-light">
                    <span class="label label-success">#</span>
                   Correcta
                 </a>
-                <a href="#" class="list-group-item">
+                <a href="#" class="btn btn-light">
                    <span class="label label-danger">#</span>
                   Incorrecta
                 </a>
-                
             </div>
-        </div>
-    </div>
     
-    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            
+               
+                
+                
+                
+                
+                
+     
+       
+    
+     
+     
+     <div> <br></br> </div>
+    
+    <div class="btn-group btn-group-justified " role="group" aria-label="...">
         
         {% if exam.finished %} 
         <div class="btn-group" role="group" >
@@ -75,6 +76,8 @@
         {% endif %}
         
     </div>
+       
+     
                      <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">

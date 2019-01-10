@@ -1,0 +1,94 @@
+{% extends 'MainBundle:Master:master.html.twig' %}
+
+{% block content %}
+    
+    <div class="row">
+           
+            <div class="col-lg-2" style="border: 1px solid #999999; margin: 2px;">
+                  <div class="list-group-item list-group-item-heading">Centrar</div>
+              <ol class="list-group" id="ol1">
+                <li class="list-group-item">Item 1</li>
+                <li class="list-group-item">Item 2</li>
+                <li class="list-group-item">Item 3</li>
+                <li class="list-group-item">Item 4</li>
+                <li class="list-group-item">Item 5</li>
+                <li class="list-group-item">Item 6</li>
+                
+                
+                
+             
+                
+              </ul>
+            </div>
+            <div class="col-lg-2" style="border: 1px solid #999999; margin: 2px;">
+                <div class="list-group-item list-group-item-heading">Planear</div>
+              <ol class="list-group" id="ol2">
+                
+                <li class="list-group-item list-group-item-info">Item 1</li>
+                <li class="list-group-item list-group-item-info">Item 2</li>
+                <li class="list-group-item list-group-item-info">Item 3</li>
+                <li class="list-group-item list-group-item-info">Item 4</li>
+                <li class="list-group-item list-group-item-info">Item 5</li>
+                <li class="list-group-item list-group-item-info">Item 6</li>
+              </ul>
+            </div>
+          </div>
+    
+    
+{% endblock content%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% block morejs %}
+    
+<script language="JavaScript" type="text/javascript" src="{{ asset('bundles/main/js/jquery-sortable-min.js') }}"></script>
+ <script language="JavaScript" type="text/javascript">
+var adjustment;
+
+$("ol.list-group").sortable({
+  group: 'list-group',
+  pullPlaceholder: false,
+  // animation on drop
+  onDrop: function  ($item, container, _super) {
+    var $clonedItem = $('<li/>').css({height: 0});
+    $item.before($clonedItem);
+    $clonedItem.animate({'height': $item.height()});
+
+    $item.animate($clonedItem.position(), function  () {
+      $clonedItem.detach();
+      _super($item, container);
+    });
+  },
+
+  // set $item relative to cursor position
+  onDragStart: function ($item, container, _super) {
+    var offset = $item.offset(),
+        pointer = container.rootGroup.pointer;
+
+    adjustment = {
+      left: pointer.left - offset.left,
+      top: pointer.top - offset.top
+    };
+
+    _super($item, container);
+  },
+  onDrag: function ($item, position) {
+    $item.css({
+      left: position.left - adjustment.left,
+      top: position.top - adjustment.top
+    });
+  }
+});
+</script>
+
+{% endblock morejs %}

@@ -27,6 +27,11 @@ class User extends BaseUser
      * @var integer $id
      */
     protected $id;
+    
+    /**
+     * @var \XYK\PMP\EntityBundle\Entity\ExamType
+     */
+    private $examType;
 
     /**
      * Get id
@@ -36,5 +41,28 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * Set examType
+     *
+     * @param \XYK\PMP\EntityBundle\Entity\ExamType $examType
+     * @return Question
+     */
+    public function setExam(\XYK\PMP\EntityBundle\Entity\ExamType $examType = null)
+    {
+        $this->examType = $examType;
+
+        return $this;
+    }
+
+    /**
+     * Get examType
+     *
+     * @return \XYK\PMP\EntityBundle\Entity\ExamType 
+     */
+    public function getExamType()
+    {
+        return $this->examType;
     }
 }

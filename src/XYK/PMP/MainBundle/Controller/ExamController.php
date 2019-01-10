@@ -269,61 +269,8 @@ class ExamController extends Controller
             ->findBy(array('exam' => $exam), array('order' => 'ASC'));
           
         
-        $numQuestions = intval((sizeof($questions))/11);
-        $numQuestions2 = intval((sizeof($questions))%11);
         
-        
-        $questions1 = $questions2 = $questions3 = $questions4 =  $questions5 = $questions6 = $questions7 = $questions8 = $questions9 = $questions10  = $questions11 = $questions12=null; 
-          
-        
-        for($i=0; $i< $numQuestions; $i++)
-        {
-            $questions1[] =  $questions[$i];
-        }
-        for($i=$numQuestions; $i< $numQuestions *2; $i++)
-        {
-            $questions2[] =  $questions[$i];
-        }
-        for($i=$numQuestions*2; $i< $numQuestions*3; $i++)
-        {
-            $questions3[] =  $questions[$i];
-        }
-        for($i=$numQuestions*3; $i< $numQuestions*4; $i++)
-        {
-            $questions4[] =  $questions[$i];
-        }
-        for($i=$numQuestions*4; $i< $numQuestions *5; $i++)
-        {
-            $questions5[] =  $questions[$i];
-        }
-        for($i=$numQuestions*5; $i< $numQuestions *6; $i++)
-        {
-            $questions6[] =  $questions[$i];
-        }
-        for($i=$numQuestions*6; $i< $numQuestions *7; $i++)
-        {
-            $questions7[] =  $questions[$i];
-        }
-        for($i=$numQuestions*7; $i< $numQuestions*8; $i++)
-        {
-            $questions8[] =  $questions[$i];
-        }
-        for($i=$numQuestions*8; $i< $numQuestions*9; $i++)
-        {
-            $questions9[] =  $questions[$i];
-        }
-        for($i=$numQuestions*9; $i< $numQuestions*10; $i++)
-        {
-            $questions10[] =  $questions[$i];
-        }
-        for($i=$numQuestions*10; $i< $numQuestions*11; $i++)
-        {
-            $questions11[] =  $questions[$i];
-        }
-        for($i=$numQuestions*11; $i< ($numQuestions*11)+$numQuestions2; $i++)
-        {
-            $questions12[] =  $questions[$i];
-        }
+       
         
         $total=0;
         if($exam->getGroup())
@@ -355,18 +302,8 @@ class ExamController extends Controller
         return $this->render('MainBundle:Forms:exam.html.twig', 
                 array(
                     'exam' => $exam,
-                    'questions1' => $questions1,
-                    'questions2' => $questions2,
-                    'questions3' => $questions3,
-                    'questions4' => $questions4,
-                    'questions5' => $questions5,
-                    'questions6' => $questions6,
-                    'questions7' => $questions7,
-                    'questions8' => $questions8,
-                    'questions9' => $questions9,
-                    'questions10' => $questions10,
-                    'questions11' => $questions11,
-                    'questions12' => $questions12,
+                    'questions' => $questions,
+                   
                     'Date' => $date,
                     'Time' => $time,
                     
@@ -600,6 +537,7 @@ class ExamController extends Controller
     {
         $types = $this->getDoctrine()
             ->getRepository('EntityBundle:ExamType')
+          
             ->findAll();
        
         return $this->render('MainBundle:Forms:selectExam.html.twig', 

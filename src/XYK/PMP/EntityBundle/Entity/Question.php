@@ -102,6 +102,8 @@ class Question
     {
         return $this->title;
     }
+    
+    
 
     /**
      * Set explanation
@@ -304,6 +306,6 @@ class Question
      */
     public function __toString()
     {
-        return $this->getTitle();
+        return substr($this->getTitle(), 0, 15).' ...';
     }
 }

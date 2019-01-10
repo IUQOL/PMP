@@ -73,9 +73,7 @@ class ExamType
      */
     private $subGroup;
     
-    
-
-
+       
     /**
      * Get id
      *
@@ -339,6 +337,8 @@ class ExamType
     {
         return $this->subGroup;
     }
+    
+    
     
     /**
      * 

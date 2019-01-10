@@ -151,6 +151,7 @@ class UserAdmin extends Admin
                     'second_options' => array('label' => 'form.password_confirmation'),
                     'invalid_message' => 'fos_user.password.mismatch',
                 ))
+                ->add('examType',null, array('required' => false ,'label' =>'Examen'))  
             ->end()
            
             ->with('Profile')
@@ -162,14 +163,16 @@ class UserAdmin extends Admin
                     'required' => true,
                     'translation_domain' => $this->getTranslationDomain()
                 ))
-//                ->add('dateOfBirth', 'sonata_type_date_picker', array(
-//                'years' => range(1900, $now->format('Y')),
-//                'dp_min_date' => '1-1-1900',
-//                'dp_max_date' => $now->format('c'),
-//                'required' => false
-//            ))
-                ->add('dateOfBirth', 'birthday', array('required' => false))
+   //             ->add('dateOfBirth', 'sonata_type_date_picker', array(
+   //             'years' => range(1900, $now->format('Y')),
+   //             'dp_min_date' => '1-1-1900',
+   //             'dp_max_date' => $now->format('c'),
+    //            'required' => false
+    //        ))
+                
+               ->add('dateOfBirth', 'birthday', array('required' => false , 'type' => 'date'))
             ->add('phone', null, array('required' => false))
+        
             ->end()
           
    

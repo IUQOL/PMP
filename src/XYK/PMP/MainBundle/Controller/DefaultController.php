@@ -10,4 +10,9 @@ class DefaultController extends Controller
     {
         return $this->render('MainBundle:Default:index.html.twig');
     }
+    
+    public function gameAction()
+    {
+        return $this->render('MainBundle:Forms:game.html.twig');
+    }
 }

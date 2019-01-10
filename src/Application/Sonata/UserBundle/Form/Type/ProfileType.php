@@ -63,6 +63,7 @@ class ProfileType extends SonataProfileType
                 'label'    => 'form.label_phone',
                 'required' => false
             ))
+            ->add('examType')
         ;
     }
     

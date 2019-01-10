@@ -124,6 +124,9 @@ class Builder extends ContainerAware
                 'route' => 'history',
                 ));
         }
+//         $menu->addChild('Juego', array(
+//                'route' => 'game',
+//                ));
         return $menu;
     }
 

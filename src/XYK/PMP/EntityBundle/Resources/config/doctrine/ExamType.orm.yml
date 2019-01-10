@@ -70,6 +70,7 @@ XYK\PMP\EntityBundle\Entity\ExamType:
             type: boolean
             nullable: true
             column: sub_group
+   
             
             
     
