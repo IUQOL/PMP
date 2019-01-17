@@ -31,7 +31,7 @@ class User extends BaseUser
     /**
      * @var \XYK\PMP\EntityBundle\Entity\ExamType
      */
-    private $examType;
+    protected $examType;
 
     /**
      * Get id
@@ -42,6 +42,22 @@ class User extends BaseUser
     {
         return $this->id;
     }
+    
+    
+   // public function __construct()
+  //  {
+   //     parent::__construct();
+   //     $this->setEnabled = true;
+    //    $exam = $this->getDoctrine()
+     //       ->getRepository('EntityBundle:ExamType')
+     //       ->findOneById(1); 
+     //   $this->setExam($exam);
+     //   $this->locked = false;
+     //   $this->expired = false;
+     //   $this->roles = array();
+     //   $this->credentialsExpired = false;
+  //  }
+    
     
     /**
      * Set examType

@@ -221,4 +221,15 @@ class UserAdmin extends Admin
     {
         return $this->userManager;
     }
+    
+    public function getNewInstance()
+    {
+        $instance = parent::getNewInstance();
+    //        $exam = $this->getModelManager()->getDoctrine()
+    //        ->getRepository('EntityBundle:ExamType')
+    //        ->findOneById(1); 
+     //   $this->setExam($exam);
+        $instance->setEnabled(true);
+        return $instance;
+}
 }
