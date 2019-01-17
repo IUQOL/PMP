@@ -9,9 +9,11 @@
             <file>file:/Applications/mappstack-5.6.39-0/apache2/htdocs/PMP/PMP/src/XYK/PMP/MainBundle/Resources/views/Forms/question.html.twig</file>
             <file>file:/Applications/mappstack-5.6.39-0/apache2/htdocs/PMP/PMP/src/XYK/PMP/MainBundle/Resources/config/routing.yml</file>
             <file>file:/Applications/mappstack-5.6.39-0/apache2/htdocs/PMP/PMP/src/XYK/PMP/MainBundle/Resources/views/Partials/questions.html.twig</file>
+            <file>file:/Applications/mappstack-5.6.39-0/apache2/htdocs/PMP/PMP/src/XYK/PMP/EntityBundle/Entity/ExamQuestion.php</file>
             <file>file:/Applications/mappstack-5.6.39-0/apache2/htdocs/PMP/PMP/src/XYK/PMP/MainBundle/Resources/public/bootstrap/css/custom.css</file>
             <file>file:/Applications/mappstack-5.6.39-0/apache2/htdocs/PMP/PMP/src/XYK/PMP/MainBundle/Resources/views/Forms/examList.html.twig</file>
             <file>file:/Applications/mappstack-5.6.39-0/apache2/htdocs/PMP/PMP/src/XYK/PMP/MainBundle/Controller/DefaultController.php</file>
+            <file>file:/Applications/mappstack-5.6.39-0/apache2/htdocs/PMP/PMP/src/XYK/PMP/EntityBundle/Entity/Exam.php</file>
             <file>file:/Applications/mappstack-5.6.39-0/apache2/htdocs/PMP/PMP/src/XYK/PMP/MainBundle/Controller/ExamController.php</file>
             <file>file:/Applications/mappstack-5.6.39-0/apache2/htdocs/PMP/PMP/src/XYK/PMP/MainBundle/Resources/views/Master/master.html.twig</file>
             <file>file:/Applications/mappstack-5.6.39-0/apache2/htdocs/PMP/PMP/src/Application/Sonata/UserBundle/Entity/User.php</file>

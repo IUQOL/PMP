@@ -167,10 +167,10 @@ class UserAdmin extends Admin
    //             'years' => range(1900, $now->format('Y')),
    //             'dp_min_date' => '1-1-1900',
    //             'dp_max_date' => $now->format('c'),
-    //            'required' => false
+   //             'required' => false
     //        ))
                 
-               ->add('dateOfBirth', 'birthday', array('required' => false , 'type' => 'date'))
+         //      ->add('dateOfBirth', 'birthday', array('required' => false , 'type' => 'date'))
             ->add('phone', null, array('required' => false))
         
             ->end()
