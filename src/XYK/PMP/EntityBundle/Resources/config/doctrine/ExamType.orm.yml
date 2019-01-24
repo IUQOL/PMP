@@ -1,5 +1,6 @@
 XYK\PMP\EntityBundle\Entity\ExamType:
     type: entity
+    repositoryClass: XYK\PMP\EntityBundle\Repository\ExamTypeRepository
     table: exam_type
     id:
         id:

@@ -44,20 +44,41 @@ class User extends BaseUser
     }
     
     
-   // public function __construct()
-  //  {
-   //     parent::__construct();
-   //     $this->setEnabled = true;
-    //    $exam = $this->getDoctrine()
-     //       ->getRepository('EntityBundle:ExamType')
-     //       ->findOneById(1); 
-     //   $this->setExam($exam);
-     //   $this->locked = false;
-     //   $this->expired = false;
-     //   $this->roles = array();
-     //   $this->credentialsExpired = false;
-  //  }
-    
+//    public function __construct()
+//   {
+//        parent::__construct();
+//   
+// $em = $this->getModelManager()->getEntityManager('XYK\PMP\EntityBundle\Entity\ExamType');
+//          
+//        
+//        
+//      
+//        $query = $em->createQuery(
+//            'SELECT p
+//            FROM EntityBundle:ExamType p
+//            WHERE p.id > :id '
+//        )->setParameter('id', 1);
+//
+//        $examType= $query->getResult();
+//
+//        
+//        
+//                   
+//        //           ->getRepository('EntityBundle:ExamType')
+//        //    ->findOneById(1); 
+//        $this->setExamType($examType);
+//
+////     $this->setEnabled = true;
+//    //    $exam = $this->getDoctrine()
+//     //       ->getRepository('EntityBundle:ExamType')
+//     //       ->findOneById(1); 
+//     //   $this->setExam($exam);
+//     //   $this->locked = false;
+//     //   $this->expired = false;
+//     //   $this->roles = array();
+//     //   $this->credentialsExpired = false;
+//    }
+//    
     
     /**
      * Set examType
@@ -65,7 +86,7 @@ class User extends BaseUser
      * @param \XYK\PMP\EntityBundle\Entity\ExamType $examType
      * @return Question
      */
-    public function setExam(\XYK\PMP\EntityBundle\Entity\ExamType $examType = null)
+    public function setExamType(\XYK\PMP\EntityBundle\Entity\ExamType $examType = null)
     {
         $this->examType = $examType;
 

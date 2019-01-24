@@ -4,9 +4,7 @@ namespace XYK\PMP\EntityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * ExamType
- */
+
 class ExamType
 {
     /**

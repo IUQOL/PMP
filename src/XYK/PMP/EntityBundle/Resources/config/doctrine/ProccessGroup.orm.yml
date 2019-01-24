@@ -1,5 +1,6 @@
 XYK\PMP\EntityBundle\Entity\ProccessGroup:
     type: entity
+    repositoryClass: XYK\PMP\EntityBundle\Repository\ProccessGroupRepository
     table: proccess_group
     id:
         id:

@@ -23,6 +23,7 @@ class Builder extends ContainerAware
         $admin_pool = $this->container->get('sonata.admin.pool');
         $security = $this->container->get('security.context'); //->isGranted('ROLE_SUPER_ADMIN');
         $token = $security->getToken();
+        $user = $token->getUser();//
        // "attributes" => array("id" => 'nav'):
         $menu = $factory->createItem('root', array(
             'navbar' => true,
@@ -92,22 +93,25 @@ class Builder extends ContainerAware
                 $typeExam = $types = $this->container->get('doctrine')
                     ->getRepository('EntityBundle:ExamType')
                     ->findAll();
-                
+                $idExam = $user->getExamType()->getId();
                 foreach($typeExam as $type)
                 {
-                    if($type->getSubGroup())
-                    {
-                    
-                    $exam->addChild('Examen '.$type->getGroupName(), 
-                                array('route' => 'searchArea',
-                                      'routeParameters' => array('idType' => 1, 'idTypeExam' => $type->getId()),
-                                    ));
-                    
-                    $exam->addChild('Examen '.$type->getAreaName(), 
-                                array('route' => 'searchArea',
-                                      'routeParameters' => array('idType' => 2, 'idTypeExam' => $type->getId()),
-                                    ));
-                    }
+                   if ($security->isGranted('ROLE_SUPER_ADMIN') || $idExam == $type->getId() )
+                   { 
+                        if($type->getSubGroup())
+                        {
+
+                        $exam->addChild('Examen '.$type->getGroupName(), 
+                                    array('route' => 'searchArea',
+                                          'routeParameters' => array('idType' => 1, 'idTypeExam' => $type->getId()),
+                                        ));
+
+                        $exam->addChild('Examen '.$type->getAreaName(), 
+                                    array('route' => 'searchArea',
+                                          'routeParameters' => array('idType' => 2, 'idTypeExam' => $type->getId()),
+                                        ));
+                        }
+                   }
                 }
                 
             

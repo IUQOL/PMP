@@ -19,6 +19,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\UserBundle\Model\UserInterface;
 
 use FOS\UserBundle\Model\UserManagerInterface;
+use DateInterval;
 
 class UserAdmin extends Admin
 {
@@ -61,9 +62,10 @@ class UserAdmin extends Admin
             ->add('email')
             //->add('groups')
             ->add('enabled', null, array('editable' => true))
-            ->add('locked', null, array('editable' => true))
+            ->add('expired', null, array('editable' => false, 'label' =>'Expiró'))
             
             ->add('createdAt')
+            ->add('expiresAt', null, array( 'label' =>'Expira'))
            // ->add('_action', 'actions', array(
            //     'actions' => array(
            //         'show' => array(),
@@ -86,7 +88,7 @@ class UserAdmin extends Admin
         $filterMapper
             //->add('id')
             ->add('username')
-            ->add('locked')
+            ->add('expired')
             ->add('email')
             ->add('groups')
         ;
@@ -151,6 +153,10 @@ class UserAdmin extends Admin
                     'second_options' => array('label' => 'form.password_confirmation'),
                     'invalid_message' => 'fos_user.password.mismatch',
                 ))
+                 ->add('expiresAt', 'date', array(
+              
+                'required' => true, 'label' =>'Expira'
+            ))
                 ->add('examType',null, array('required' => false ,'label' =>'Examen'))  
             ->end()
            
@@ -163,12 +169,7 @@ class UserAdmin extends Admin
                     'required' => true,
                     'translation_domain' => $this->getTranslationDomain()
                 ))
-   //             ->add('dateOfBirth', 'sonata_type_date_picker', array(
-   //             'years' => range(1900, $now->format('Y')),
-   //             'dp_min_date' => '1-1-1900',
-   //             'dp_max_date' => $now->format('c'),
-   //             'required' => false
-    //        ))
+               
                 
          //      ->add('dateOfBirth', 'birthday', array('required' => false , 'type' => 'date'))
             ->add('phone', null, array('required' => false))
@@ -190,7 +191,7 @@ class UserAdmin extends Admin
                 ->add('locked', null, array('required' => false))
                 ->add('expired', null, array('required' => false))
                 ->add('enabled', null, array('required' => false))
-                ->add('credentialsExpired', null, array('required' => false))
+            //    ->add('credentialsExpired', null, array('required' => false))
                 ->end()
             ;
        // }
@@ -225,10 +226,42 @@ class UserAdmin extends Admin
     public function getNewInstance()
     {
         $instance = parent::getNewInstance();
-    //        $exam = $this->getModelManager()->getDoctrine()
-    //        ->getRepository('EntityBundle:ExamType')
-    //        ->findOneById(1); 
-     //   $this->setExam($exam);
+      
+        
+        
+        $em = $this->getModelManager()->getEntityManager('XYK\PMP\EntityBundle\Entity\ExamType');
+          
+        
+        
+      
+        $query = $em->createQuery(
+            'SELECT p
+            FROM EntityBundle:ExamType p
+            WHERE p.id = :id '
+        )->setParameter('id', 1);
+
+        $examType= $query->setMaxResults(1)->getOneOrNullResult();
+
+        $em2 = $this->getModelManager()->getEntityManager('Application\Sonata\UserBundle\Entity\Group');
+          
+        
+        
+      
+        $query2 = $em2->createQuery(
+            'SELECT p
+            FROM ApplicationSonataUserBundle:Group p
+            WHERE p.id = :id '
+        )->setParameter('id', 1);
+
+        $group= $query2->setMaxResults(1)->getOneOrNullResult();
+        
+                   
+        $date = new \DateTime();
+        $interval = new DateInterval('P30D');
+        $date->add($interval);
+        $instance->setExpiresAt($date);
+        $instance->addGroup($group);
+        $instance->setExamType($examType);
         $instance->setEnabled(true);
         return $instance;
 }

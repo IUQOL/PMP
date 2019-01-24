@@ -1,5 +1,6 @@
 XYK\PMP\EntityBundle\Entity\KnowledgeArea:
     type: entity
+    repositoryClass: XYK\PMP\EntityBundle\Repository\KnowledgeAreaRepository
     table: konwledge_area
     id:
         id:

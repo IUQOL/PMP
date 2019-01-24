@@ -442,9 +442,30 @@ class ExamController extends Controller
     
     public function searchAction()
     {
-        $types = $this->getDoctrine()
+        
+         $this->translator = $this->container->get('translator');
+        $security = $this->container->get('security.context'); //->isGranted('ROLE_SUPER_ADMIN');
+        $token = $security->getToken();
+     
+        
+        $idTypeExam = $token->getUser()->getExamType()->getId();
+        if ($token != null && ($security->isGranted('ROLE_SONATA_ADMIN') || $security->isGranted('ROLE_SUPER_ADMIN'))) {
+          
+            $types = $this->getDoctrine()
             ->getRepository('EntityBundle:ExamType')
             ->findAll();
+        }
+        else
+        {
+            
+            $types = $this->getDoctrine()
+            ->getRepository('EntityBundle:ExamType')
+            ->findAllById($idTypeExam);
+        }
+        
+        
+        
+        
        
        
         return $this->render('MainBundle:Forms:selectQuestion.html.twig', 
@@ -535,17 +556,35 @@ class ExamController extends Controller
     
     public function getExamAction()
     {
-        $types = $this->getDoctrine()
-            ->getRepository('EntityBundle:ExamType')
+     
+        $this->translator = $this->container->get('translator');
+        $security = $this->container->get('security.context'); //->isGranted('ROLE_SUPER_ADMIN');
+        $token = $security->getToken();
+     
+        
+        $idTypeExam = $token->getUser()->getExamType()->getId();
+        if ($token != null && ($security->isGranted('ROLE_SONATA_ADMIN') || $security->isGranted('ROLE_SUPER_ADMIN'))) {
           
+             $types = $this->getDoctrine()
+           ->getRepository('EntityBundle:ExamType')
+  
             ->findAll();
        
-        return $this->render('MainBundle:Forms:selectExam.html.twig', 
-                array(
-                    'types' => $types,
-                    'errort' => false,
-                    
-                ));
+            return $this->render('MainBundle:Forms:selectExam.html.twig', 
+                    array(
+                        'types' => $types,
+                        'errort' => false,
+
+                    ));
+        }
+        else
+        {
+            
+            return $this->generateExamAction(-1, $idTypeExam , -1 , -1);
+        }
+        
+        
+      
     }
     
     public function createExamAction()
@@ -852,7 +891,7 @@ class ExamController extends Controller
         $graphics = array();
         $proccess = $this->getDoctrine()
             ->getRepository('EntityBundle:ProccessGroup')
-            ->findBy(array('examType' => $exam->getExamType())); 
+            ->findBy(array('examType' => $exam->getExamType()), array('id'=>'asc')); 
         $count = 1;
         foreach($proccess as $proc)
         {
@@ -869,7 +908,7 @@ class ExamController extends Controller
         $graphics = array();
         $areas = $this->getDoctrine()
             ->getRepository('EntityBundle:KnowledgeArea')
-            ->findBy(array('examType' => $exam->getExamType())); 
+            ->findBy(array('examType' => $exam->getExamType()), array('id'=>'asc')); 
         $count = 1;
         foreach($areas as $area)
         {
