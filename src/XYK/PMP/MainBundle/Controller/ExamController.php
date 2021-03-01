@@ -85,7 +85,9 @@ class ExamController extends Controller
         if (!$question) {
            return $this->render('MainBundle:Forms:question.html.twig', 
                 array(
-                    'QuestionId' => -1,));
+                    'QuestionId' => -1,
+                    'Time' => false,
+                     'Date'  => $date,));
             
             
         }
@@ -95,9 +97,11 @@ class ExamController extends Controller
         ->findBy(array('question' => $question));
         
         if (!$answers) {
-            throw $this->createNotFoundException(
-                'No answers found for question '
-            );
+           return $this->render('MainBundle:Forms:question.html.twig', 
+                array(
+                    'QuestionId' => -1,
+                     'Time' => false,
+                     'Date'  => $date,));
         }
         
         $answers2 = $this->rasndomizeArray($answers);
@@ -658,13 +662,25 @@ class ExamController extends Controller
             {
                 $correct = true;
             }
+          $group = "";
+            if(!is_null($question->getQuestion()->getProccessGroup()))
+           {
+               $group = $question->getQuestion()->getProccessGroup()->getName();
+           }
+           $area= "";
+            if(!is_null($question->getQuestion()->getKnowledgeArea()))
+           {
+               $area = $question->getQuestion()->getKnowledgeArea()->getName();
+           } 
             $questions2 [] = array(
+          
+             
            // array('Correctas', $correct),
            // array('Incorrectas', $incorrect),
            'id' => $question->getQuestion()->getId(),
            'order' => $question->getOrder(),
-           'grupo' => $question->getQuestion()->getProccessGroup()->getName(),
-           'area'=> $question->getQuestion()->getKnowledgeArea()->getName(),
+           'grupo' => $group,
+           'area'=> $area,
            'correct' => $correct,
          );
         }
@@ -795,7 +811,8 @@ class ExamController extends Controller
             {
                 $proccess = $this->getDoctrine()
                 ->getRepository('EntityBundle:ProccessGroup')
-                ->findAll();
+                ->findBy(array('examType' => $examType));
+                 
 
                 foreach ($proccess as $proc)
                 {

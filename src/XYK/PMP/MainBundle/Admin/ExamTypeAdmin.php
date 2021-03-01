@@ -55,13 +55,13 @@ class ExamTypeAdmin extends Admin
             ->add('groupQuestions')
             ->add('areaName')
             ->add('areaQuestions')
-                 ->add('users', 'sonata_type_collection', array(
+        /*         ->add('users', 'sonata_type_collection', array(
                         'required' => false,
                         'by_reference' => false
                     ), array(
                         'edit' => 'inline',
                         'inline' => 'table'
-                    ))
+                    ))*/
         ;
     }
 
@@ -81,7 +81,7 @@ class ExamTypeAdmin extends Admin
             ->add('groupQuestions')
             ->add('areaName')
             ->add('areaQuestions') 
-                ->add('users')
+            /*    ->add('users')*/
         ;
     }
     

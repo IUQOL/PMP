@@ -101,15 +101,18 @@ class Builder extends ContainerAware
                         if($type->getSubGroup())
                         {
 
-                        $exam->addChild('Examen '.$type->getGroupName(), 
-                                    array('route' => 'searchArea',
-                                          'routeParameters' => array('idType' => 1, 'idTypeExam' => $type->getId()),
-                                        ));
+                            $exam->addChild('Examen '.$type->getGroupName(), 
+                                        array('route' => 'searchArea',
+                                              'routeParameters' => array('idType' => 1, 'idTypeExam' => $type->getId()),
+                                            ));
 
-                        $exam->addChild('Examen '.$type->getAreaName(), 
-                                    array('route' => 'searchArea',
-                                          'routeParameters' => array('idType' => 2, 'idTypeExam' => $type->getId()),
-                                        ));
+                            if($type->getAreaName() != 'NA')
+                            {   
+                                $exam->addChild('Examen '.$type->getAreaName(), 
+                                            array('route' => 'searchArea',
+                                                  'routeParameters' => array('idType' => 2, 'idTypeExam' => $type->getId()),
+                                                ));
+                            }
                         }
                    }
                 }
